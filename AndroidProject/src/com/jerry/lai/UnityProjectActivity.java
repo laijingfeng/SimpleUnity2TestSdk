@@ -17,11 +17,12 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 
 	public void DoLogin() {
 		//TODO
+		DoLoginCallBack();
 	}
 
 	public void DoLoginCallBack() {
 		//TODO
-		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallBack", "");
+		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallBack", "test");
 	}
 
 	public void DoSwitchAccount() {
@@ -32,10 +33,16 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
 			//TODO
+			exitDirectly();
 			break;
 		default:
 			break;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	private void exitDirectly() {
+		UnityProjectActivity.this.finish();
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 }
