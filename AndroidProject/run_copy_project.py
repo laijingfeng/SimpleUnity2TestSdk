@@ -25,11 +25,11 @@ def CopyDirFiles(sDir, tDir):
 
 if __name__ == '__main__':
 
-    exoprt_and = 'E:/Jerry/SimpleUnity2TestSdk/UnityProject/ExportAndroid/UnityProject/assets/Android'
-    exoprt_bin = 'E:/Jerry/SimpleUnity2TestSdk/UnityProject/ExportAndroid/UnityProject/assets/bin'
+    exoprt_and = './../UnityProject/ExportAndroid/UnityProject/assets/Android'
+    exoprt_bin = './../UnityProject/ExportAndroid/UnityProject/assets/bin'
     
-    sdk_and = 'E:/Jerry/SimpleUnity2TestSdk/AndroidProject/assets/Android'
-    sdk_bin = 'E:/Jerry/SimpleUnity2TestSdk/AndroidProject/assets/bin'
+    sdk_and = './assets/Android'
+    sdk_bin = './assets/bin'
 
     rm_dir(sdk_and)
     rm_dir(sdk_bin)

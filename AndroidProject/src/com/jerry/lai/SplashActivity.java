@@ -22,6 +22,7 @@ public class SplashActivity extends Activity {
                         UnityProjectActivity.class);
                 startActivity(intent);
                 SplashActivity.this.finish();
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         }, SPLASH_DISPLAY_LENGHT);
 

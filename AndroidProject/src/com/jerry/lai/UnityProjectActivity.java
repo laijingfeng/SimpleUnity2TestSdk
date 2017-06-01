@@ -13,8 +13,17 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		UnitySplashExtra.getInstance().onCreate(this);
 	};
 
+	public UnityPlayer getUnityPlayer() {
+		return mUnityPlayer;
+	}
+	
+	public void DoHideAndroidSplash() {
+		UnitySplashExtra.getInstance().hideSplash();
+	}
+	
 	public void DoLogin() {
 		//TODO
 		DoLoginCallBack();

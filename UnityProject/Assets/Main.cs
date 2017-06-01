@@ -8,6 +8,11 @@ public class Main : MonoBehaviour
     public Button btnTest;
     public Text tex;
 
+    void Awake()
+    {
+        UnityCallAnroid("DoHideAndroidSplash", false);
+    }
+
     void Start()
     {
         btnDoLogin.onClick.AddListener(() =>
