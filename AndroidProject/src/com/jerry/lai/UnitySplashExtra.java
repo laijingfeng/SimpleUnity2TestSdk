@@ -1,9 +1,12 @@
 package com.jerry.lai;
 
+import android.os.Handler;
 import android.widget.ImageView;
 
 public class UnitySplashExtra {
 	private ImageView bgView = null;
+	private boolean isFinish = false;
+	private final int SPLASH_DISPLAY_LENGHT = 1000;
 	private UnityProjectActivity mMainActivity = null;
 	private static UnitySplashExtra mInstance;
 
@@ -19,6 +22,7 @@ public class UnitySplashExtra {
 	}
 
 	public void onCreate(UnityProjectActivity activity) {
+		isFinish = false;
 		mMainActivity = activity;
 		showSplash();
 	}
@@ -27,18 +31,42 @@ public class UnitySplashExtra {
 		if (bgView != null) {
 			return;
 		}
+		setBgView("splash");
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if (isFinish == false) {
+					setBgView("splash_unity");
+				}
+			}
+		}, SPLASH_DISPLAY_LENGHT);
+	}
+
+	private void setBgView(String image_name) {
+		if (isFinish) {
+			return;
+		}
 		try {
-			bgView = new ImageView(mMainActivity);
+			boolean first = false;
+			if (bgView == null) {
+				first = true;
+				bgView = new ImageView(mMainActivity);
+			}
+
 			int splash_bg = mMainActivity.getResources().getIdentifier(
-					"splash", "drawable", mMainActivity.getPackageName());
+					image_name, "drawable", mMainActivity.getPackageName());
 			bgView.setBackgroundResource(splash_bg);
-			mMainActivity.getUnityPlayer().addView(bgView);
+
+			if (first) {
+				mMainActivity.getUnityPlayer().addView(bgView);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void hideSplash() {
+		isFinish = true;
 		try {
 			if (bgView == null) {
 				return;
