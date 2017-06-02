@@ -20,28 +20,32 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		return mUnityPlayer;
 	}
 	
+	// region ToUnity 
+	
 	public void DoHideAndroidSplash() {
 		UnitySplashExtra.getInstance().hideSplash();
 	}
 	
 	public void DoLogin() {
-		//TODO
-		DoLoginCallBack();
+		DoLoginCallback();
 	}
 
-	public void DoLoginCallBack() {
-		//TODO
-		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallBack", "test");
+	public void DoLoginCallback() {
+		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallback", "login");
 	}
 
 	public void DoSwitchAccount() {
+		DoSwitchAccountCallback();
 	}
+	
+	public void DoSwitchAccountCallback() {
+		UnityPlayer.UnitySendMessage(U3DReceiver, "DoSwitchAccountCallback", "switch");
+	}	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
-			//TODO
 			exitDirectly();
 			break;
 		default:
@@ -54,4 +58,6 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		UnityProjectActivity.this.finish();
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
+	
+	// endregion ToUnity
 }
