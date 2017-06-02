@@ -10,19 +10,19 @@ public class Main : MonoBehaviour
 
     void Awake()
     {
-        UnityCallAnroid("DoHideAndroidSplash", false);
+        DoHideAndroidSplash();
     }
 
     void Start()
     {
         btnDoLogin.onClick.AddListener(() =>
         {
-            UnityCallAnroid("DoLogin", false);
+            DoLogin();
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
-            UnityCallAnroid("DoSwitchAccount", false);
+            DoSwitchAccount();
         });
 
         btnTest.onClick.AddListener(() =>
@@ -31,14 +31,59 @@ public class Main : MonoBehaviour
         });
     }
 
-    private void DoLoginCallBack(string account)
+    private void AddLog(string msg)
     {
-        tex.text += "\n" + account;
+        if (tex == null
+            || string.IsNullOrEmpty(msg))
+        {
+            return;
+        }
+        tex.text += "\n" + msg;
     }
 
-    void Update()
+    #region AndroidSDK
+
+    #region Unity2SDK
+
+    private void DoHideAndroidSplash()
     {
+        UnityCallAnroid("DoHideAndroidSplash", false);
     }
+
+    private void DoLogin()
+    {
+        UnityCallAnroid("DoLogin", false);
+    }
+
+    private void DoSwitchAccount()
+    {
+        UnityCallAnroid("DoSwitchAccount", false);
+    }
+
+    #endregion Unity2SDK
+
+    #region SDK2Unity
+
+    private void DoLoginCallback(string info)
+    {
+        AddLog("DoLoginCallback:" + info);
+    }
+
+    private void DoSwitchAccountCallback(string info)
+    {
+        AddLog("DoSwitchAccountCallback:" + info);
+    }
+
+    private void DoExit()
+    {
+        AddLog("DoExit");
+    }
+
+    #endregion SDK2Unity
+
+    #endregion AndroidSDK
+
+    #region AndroidHelper
 
     private void UnityCallAnroid(string methodName, bool isStatic = false, params object[] args)
     {
@@ -82,4 +127,6 @@ public class Main : MonoBehaviour
 #endif
         return ret;
     }
+
+    #endregion AndroidHelper
 }
