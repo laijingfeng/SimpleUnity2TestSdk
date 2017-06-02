@@ -30,7 +30,7 @@ public class UnitySplashExtra {
 		try {
 			bgView = new ImageView(mMainActivity);
 			int splash_bg = mMainActivity.getResources().getIdentifier(
-					"splash_unity", "drawable", mMainActivity.getPackageName());
+					"splash", "drawable", mMainActivity.getPackageName());
 			bgView.setBackgroundResource(splash_bg);
 			mMainActivity.getUnityPlayer().addView(bgView);
 		} catch (Exception e) {
