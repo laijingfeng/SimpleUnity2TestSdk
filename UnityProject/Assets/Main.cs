@@ -47,17 +47,23 @@ public class Main : MonoBehaviour
 
     private void DoHideAndroidSplash()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
         UnityCallAnroid("DoHideAndroidSplash", false);
+#endif
     }
 
     private void DoLogin()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
         UnityCallAnroid("DoLogin", false);
+#endif
     }
 
     private void DoSwitchAccount()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
         UnityCallAnroid("DoSwitchAccount", false);
+#endif
     }
 
     #endregion Unity2SDK
@@ -85,48 +91,54 @@ public class Main : MonoBehaviour
 
     #region AndroidHelper
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+
+    private AndroidJavaClass jc;
+    private AndroidJavaObject jo;
+
+    private void CheckJCJO()
+    {
+        if (jo != null)
+        {
+            return;
+        }
+        if (jc != null)
+        {
+            jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+            return;
+        }
+        jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+    }
+
     private void UnityCallAnroid(string methodName, bool isStatic = false, params object[] args)
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        CheckJCJO();
+        if (isStatic)
         {
-            using (AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity"))
-            {
-                if (isStatic)
-                {
-                    jo.CallStatic(methodName, args);
-                }
-                else
-                {
-                    jo.Call(methodName, args);
-                }
-            }
+            jo.CallStatic(methodName, args);
         }
-#endif
+        else
+        {
+            jo.Call(methodName, args);
+        }
     }
 
     private T UnityCallAnroid<T>(string methodName, bool isStatic = false, params object[] args)
     {
+        CheckJCJO();
         T ret = default(T);
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-        using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        if (isStatic)
         {
-            using (AndroidJavaObject jo = jc.GetStatic<AndroidJavaObject>("currentActivity"))
-            {
-                if (isStatic)
-                {
-                    ret = jo.CallStatic<T>(methodName, args);
-                }
-                else
-                {
-                    ret = jo.Call<T>(methodName, args);
-                }
-            }
+            ret = jo.CallStatic<T>(methodName, args);
         }
-#endif
+        else
+        {
+            ret = jo.Call<T>(methodName, args);
+        }
         return ret;
     }
+#endif
 
     #endregion AndroidHelper
 }
