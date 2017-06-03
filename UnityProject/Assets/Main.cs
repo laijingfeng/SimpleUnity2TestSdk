@@ -41,6 +41,12 @@ public class Main : MonoBehaviour
         tex.text += "\n" + msg;
     }
 
+    public class LoginCallbackData
+    {
+        public string uid;
+        public string token;
+    }
+
     #region AndroidSDK
 
     #region Unity2SDK
@@ -70,9 +76,11 @@ public class Main : MonoBehaviour
 
     #region SDK2Unity
 
-    private void DoLoginCallback(string info)
+    private void DoLoginCallback(string loginData)
     {
-        AddLog("DoLoginCallback:" + info);
+        LoginCallbackData data = JsonUtility.FromJson<LoginCallbackData>(loginData);
+        AddLog("DoLoginCallback:" + loginData);
+        AddLog("loginData:" + data.uid + " " + data.token);
     }
 
     private void DoSwitchAccountCallback(string info)
