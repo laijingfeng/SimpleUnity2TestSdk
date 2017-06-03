@@ -29,18 +29,22 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 	public void DoLogin() {
 		DoLoginCallback();
 	}
-
-	public void DoLoginCallback() {
-		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallback", "login");
-	}
-
+	
 	public void DoSwitchAccount() {
 		DoSwitchAccountCallback();
 	}
 	
+	public void DoLoginCallback() {
+		UnityPlayer.UnitySendMessage(U3DReceiver, "DoLoginCallback", "login");
+	}
+	
 	public void DoSwitchAccountCallback() {
 		UnityPlayer.UnitySendMessage(U3DReceiver, "DoSwitchAccountCallback", "switch");
-	}	
+	}
+	
+	public void DoExit() {
+		UnityPlayer.UnitySendMessage(U3DReceiver, "DoExit", "exit");
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -55,6 +59,7 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 	}
 	
 	private void exitDirectly() {
+		DoExit();
 		UnityProjectActivity.this.finish();
 		android.os.Process.killProcess(android.os.Process.myPid());
 	}
