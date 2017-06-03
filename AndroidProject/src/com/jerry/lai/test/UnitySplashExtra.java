@@ -1,4 +1,4 @@
-package com.jerry.lai;
+package com.jerry.lai.test;
 
 import android.os.Handler;
 import android.widget.ImageView;

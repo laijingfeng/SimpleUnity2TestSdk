@@ -1,4 +1,6 @@
-package com.jerry.lai;
+package com.jerry.lai.test;
+
+import com.jerry.lai.util.JerryHelper;
 
 import android.app.Activity;
 

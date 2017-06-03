@@ -1,5 +1,6 @@
-package com.jerry.lai;
+package com.jerry.lai.test;
 
+import android.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

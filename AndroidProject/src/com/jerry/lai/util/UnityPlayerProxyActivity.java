@@ -1,4 +1,4 @@
-package com.jerry.lai;
+package com.jerry.lai.util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ public class UnityPlayerProxyActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
-		Intent intent = new Intent(this, com.jerry.lai.UnityPlayerActivity.class);
+		Intent intent = new Intent(this, com.jerry.lai.util.UnityPlayerActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null)

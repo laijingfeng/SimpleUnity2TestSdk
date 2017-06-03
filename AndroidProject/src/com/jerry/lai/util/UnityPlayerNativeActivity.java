@@ -1,5 +1,6 @@
-package com.jerry.lai;
+package com.jerry.lai.util;
 
+import android.app.NativeActivity;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.view.Window;
 
 import com.unity3d.player.UnityPlayer;
 
-public class UnityPlayerActivity extends BaseActivity
+public class UnityPlayerNativeActivity extends NativeActivity
 {
 	protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
 
@@ -19,6 +20,7 @@ public class UnityPlayerActivity extends BaseActivity
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 
+		getWindow().takeSurface(null);
 		getWindow().setFormat(PixelFormat.RGBX_8888); // <--- This makes xperia play happy
 
 		mUnityPlayer = new UnityPlayer(this);
