@@ -80,7 +80,7 @@ public class Main : MonoBehaviour
     {
         LoginCallbackData data = JsonUtility.FromJson<LoginCallbackData>(loginData);
         AddLog("DoLoginCallback:" + loginData);
-        AddLog("loginData:" + data.uid + " " + data.token);
+        AddLog("loginData uid:[" + data.uid + "] token:[" + data.token + "]");
     }
 
     private void DoSwitchAccountCallback(string info)
