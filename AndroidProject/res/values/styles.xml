@@ -3,8 +3,10 @@
 
     <style name="UnityThemeSelector" parent="android:Theme.Light.NoTitleBar.Fullscreen"></style>
 
-    <style name="Splash">
+    <style name="Splash" parent="UnityThemeSelector">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 

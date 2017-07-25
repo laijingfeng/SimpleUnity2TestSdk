@@ -13,6 +13,7 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(R.style.UnityThemeSelector);
 		super.onCreate(savedInstanceState);
 		UnitySplashExtra.getInstance().onCreate(this);
 	};
