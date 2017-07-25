@@ -5,6 +5,9 @@ import android.widget.ImageView;
 
 public class UnitySplashExtra {
 	private ImageView bgView = null;
+	/*
+	 * 只有冷启动才需要闪图
+	 */
 	private boolean isFinish = false;
 	private final int SPLASH_DISPLAY_LENGHT = 1000;
 	private UnityProjectActivity mMainActivity = null;
@@ -42,6 +45,9 @@ public class UnitySplashExtra {
 		}, SPLASH_DISPLAY_LENGHT);
 	}
 
+	/*
+	 * 设置背景图
+	 */
 	private void setBgView(String image_name) {
 		if (isFinish) {
 			return;
@@ -65,6 +71,9 @@ public class UnitySplashExtra {
 		}
 	}
 
+	/*
+	 * 隐藏闪图
+	 */
 	public void hideSplash() {
 		isFinish = true;
 		try {
