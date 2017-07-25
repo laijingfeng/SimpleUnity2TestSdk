@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
+/// <summary>
+/// 运作则表明Unity页面正常
+/// </summary>
 public class TestOne : MonoBehaviour
 {
     private Text tex;
@@ -22,9 +25,5 @@ public class TestOne : MonoBehaviour
             tex.text = str[idx];
             idx = (idx + 1) % str.Length;
         }
-    }
-
-    void Update()
-    {
     }
 }

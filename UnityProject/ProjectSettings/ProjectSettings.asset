@@ -89,7 +89,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.jerry.lai.test
+  bundleIdentifier: com.jerry.lai.UnityProject
   bundleVersion: 1.0.0
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
@@ -158,7 +158,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 2
   androidSplashScreen: {fileID: 2800000, guid: 89e4053f722c9574ca0d6e12bf8defcb, type: 3}
-  AndroidKeystoreName: E:/Jerry/SimpleUnity2TestSdk/UnityProject/jerry.keystore
+  AndroidKeystoreName: ./jerry.keystore
   AndroidKeyaliasName: jerrylai
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
