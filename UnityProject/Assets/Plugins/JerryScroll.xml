@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JerryScroll</name>
+    </assembly>
+    <members>
+        <member name="F:LayoutConfig.dirCellWidth">
+            <summary>
+            dir方向元素扩展
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.dirViewLen">
+            <summary>
+            可视区域dir方向长度，用来算进度
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.bufHalfCnt">
+            <summary>
+            两端各额外缓存的行数或列数
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.progress">
+            <summary>
+            进度
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.frameWorkCnt">
+            <summary>
+            一帧工作数量，0无限
+            </summary>
+        </member>
+        <member name="T:ModifyConfig">
+            <summary>
+            <para>修改配置</para>
+            <para>重刷数据的时候，可以修改部分配置</para>
+            <para>特别是想复用之前的Prefab，有些细微配置不一样，可以用RefreshDatas而不用DoInit</para>
+            </summary>
+        </member>
+        <member name="F:InfinitelyGridLayoutGroup`2.curFirstIdx">
+            <summary>
+            视野内的元素开始的编号
+            </summary>
+        </member>
+        <member name="F:InfinitelyGridLayoutGroup`2.itemList">
+            <summary>
+            创建的对象
+            </summary>
+        </member>
+        <member name="F:InfinitelyGridLayoutGroup`2.fiexdDirViewCount">
+            <summary>
+            长度方向可视数量，取上整
+            </summary>
+        </member>
+        <member name="F:InfinitelyGridLayoutGroup`2.fiexdDirViewCountF">
+            <summary>
+            长度方向可视数量，浮点数
+            </summary>
+        </member>
+        <member name="F:InfinitelyGridLayoutGroup`2.datas">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:InfinitelyGridLayoutGroup`2.RefreshDatas(System.Collections.Generic.List{`1},ModifyConfig)">
+            <summary>
+            
+            </summary>
+            <param name="tdatas">新的数据数量</param>
+            <param name="modifyConfig">调整部分配置</param>
+        </member>
+        <member name="M:InfinitelyGridLayoutGroup`2.CurProgress">
+            <summary>
+            当前进度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:InfinitelyGridLayoutGroup`2.TotalCount">
+            <summary>
+            数据总量
+            </summary>
+        </member>
+        <member name="P:InfinitelyGridLayoutGroup`2.DirLen">
+            <summary>
+            方向总长度（Item数）
+            </summary>
+        </member>
+    </members>
+</doc>

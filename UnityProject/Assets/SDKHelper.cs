@@ -1,5 +1,10 @@
-﻿using Jerry;
+﻿#if UNITY_ANDROID && !UNITY_EDITOR
+using System;
+#endif
+using Jerry;
+#if UNITY_ANDROID && !UNITY_EDITOR
 using UnityEngine;
+#endif
 
 public class SDKHelper : Singleton<SDKHelper>
 {
@@ -9,45 +14,83 @@ public class SDKHelper : Singleton<SDKHelper>
     private AndroidJavaClass jc;
     private AndroidJavaObject jo;
 
-    private void CheckJCJO()
+    private bool CheckJCJO()
     {
         if (jo != null)
         {
-            return;
+            return true;
         }
         if (jc != null)
         {
-            jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
-            return;
+            try
+            {
+                jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogWarning(e.ToString());
+                return false;
+            }
+            return true;
         }
-        jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+        try
+        {
+            jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            jo = jc.GetStatic<AndroidJavaObject>("currentActivity");
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogWarning(e.ToString());
+            return false;
+        }
+        return true;
     }
 
     public void UnityCallAnroid(string methodName, bool isStatic = false, params object[] args)
     {
-        CheckJCJO();
-        if (isStatic)
+        if (!CheckJCJO())
         {
-            jo.CallStatic(methodName, args);
+            return;
         }
-        else
+        try
         {
-            jo.Call(methodName, args);
+            if (isStatic)
+            {
+                jo.CallStatic(methodName, args);
+            }
+            else
+            {
+                jo.Call(methodName, args);
+            }
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogWarning(e.ToString());
         }
     }
 
     public T UnityCallAnroid<T>(string methodName, bool isStatic = false, params object[] args)
     {
-        CheckJCJO();
         T ret = default(T);
-        if (isStatic)
+        if (!CheckJCJO())
         {
-            ret = jo.CallStatic<T>(methodName, args);
+            return ret;
         }
-        else
+        try
         {
-            ret = jo.Call<T>(methodName, args);
+            if (isStatic)
+            {
+                ret = jo.CallStatic<T>(methodName, args);
+            }
+            else
+            {
+                ret = jo.Call<T>(methodName, args);
+            }
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogWarning(e.ToString());
+            ret = default(T);
         }
         return ret;
     }
