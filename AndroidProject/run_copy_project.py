@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #coding=utf-8
-#version: 2017-05-26-00
+#version: 2017-08-29-00
 
 import os, shutil
 
@@ -25,8 +25,11 @@ def CopyDirFiles(sDir, tDir):
 
 if __name__ == '__main__':
 
-    exoprt_and = './../UnityProject/ExportAndroid/UnityProject/assets/Android'
-    exoprt_bin = './../UnityProject/ExportAndroid/UnityProject/assets/bin'
+    # TODO:根据实际情况配置
+    project_path = './../UnityProject'
+    
+    exoprt_and = project_path + '/ExportAndroid/UnityProject/assets/Android'
+    exoprt_bin = project_path + '/ExportAndroid/UnityProject/assets/bin'
     
     sdk_and = './assets/Android'
     sdk_bin = './assets/bin'
