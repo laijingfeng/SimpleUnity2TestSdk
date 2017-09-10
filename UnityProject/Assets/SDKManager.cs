@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SDKManager : SingletonMono<SDKManager>
 {
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         Init();

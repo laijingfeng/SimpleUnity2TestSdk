@@ -57,7 +57,7 @@ public class JerryDebugUGUI : JerryDebug<JerryDebugUGUI>
     private Transform m_CtrPanel;
     private Transform m_Log;
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
