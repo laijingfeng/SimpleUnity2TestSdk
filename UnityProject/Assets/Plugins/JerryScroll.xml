@@ -4,6 +4,16 @@
         <name>JerryScroll</name>
     </assembly>
     <members>
+        <member name="F:LayoutConfig.prefab">
+            <summary>
+            预设
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.dir">
+            <summary>
+            方向
+            </summary>
+        </member>
         <member name="F:LayoutConfig.dirCellWidth">
             <summary>
             dir方向元素扩展
@@ -14,6 +24,16 @@
             可视区域dir方向长度，用来算进度
             </summary>
         </member>
+        <member name="F:LayoutConfig.cellSize">
+            <summary>
+            元素大小
+            </summary>
+        </member>
+        <member name="F:LayoutConfig.spacing">
+            <summary>
+            两个元素间的间隔
+            </summary>
+        </member>
         <member name="F:LayoutConfig.bufHalfCnt">
             <summary>
             两端各额外缓存的行数或列数
@@ -21,7 +41,7 @@
         </member>
         <member name="F:LayoutConfig.progress">
             <summary>
-            进度
+            设置进度
             </summary>
         </member>
         <member name="F:LayoutConfig.frameWorkCnt">
@@ -34,6 +54,11 @@
             <para>修改配置</para>
             <para>重刷数据的时候，可以修改部分配置</para>
             <para>特别是想复用之前的Prefab，有些细微配置不一样，可以用RefreshDatas而不用DoInit</para>
+            </summary>
+        </member>
+        <member name="P:LayoutEditor.DirLen">
+            <summary>
+            方向总长度（Item数）
             </summary>
         </member>
         <member name="F:InfinitelyGridLayoutGroup`2.curFirstIdx">
@@ -73,6 +98,11 @@
             当前进度
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:InfinitelyGridLayoutGroup`2.Inited">
+            <summary>
+            是否初始化好了
+            </summary>
         </member>
         <member name="P:InfinitelyGridLayoutGroup`2.TotalCount">
             <summary>
