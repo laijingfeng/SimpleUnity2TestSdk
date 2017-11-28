@@ -1,13 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="UnityThemeSelector" parent="android:Theme.Light.NoTitleBar.Fullscreen"></style>
-
-    <style name="Splash" parent="UnityThemeSelector">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/splash</item>
-    </style>
-
 </resources>
