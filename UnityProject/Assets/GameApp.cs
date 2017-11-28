@@ -27,12 +27,12 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoLogin.onClick.AddListener(() =>
         {
-            SDKManager.Inst.Login();
+            SDKMgr.Inst.Login();
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
-            SDKManager.Inst.SwitchAccout();
+            SDKMgr.Inst.SwitchAccout();
         });
 
         btnTest.onClick.AddListener(() =>
@@ -48,7 +48,7 @@ public class GameApp : SingletonMono<GameApp>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SDKManager.Inst.ExitGame();
+            SDKMgr.Inst.ExitGame();
         }
     }
 
@@ -95,7 +95,7 @@ public class GameApp : SingletonMono<GameApp>
         SaveData(tag);
     }
 
-    public void LoginCallback(SDKManager.LoginCallbackData data)
+    public void LoginCallback(SDKMgr.LoginCallbackData data)
     {
         AddLog("loginData uid:[" + data.uid + "] token:[" + data.token + "]");
     }

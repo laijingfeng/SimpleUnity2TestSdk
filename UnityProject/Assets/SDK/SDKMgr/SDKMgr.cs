@@ -1,7 +1,7 @@
 ﻿using Jerry;
 using UnityEngine;
 
-public class SDKManager : SingletonMono<SDKManager>
+public partial class SDKMgr : SingletonMono<SDKMgr>
 {
     protected override void Awake()
     {
@@ -20,6 +20,8 @@ public class SDKManager : SingletonMono<SDKManager>
 
     private void Init()
     {
+        JerrySDKMgr_Init();
+
 #if UNITY_EDITOR
         UnityEngine.Debug.LogWarning("Init Editor");
 #elif UNITY_ANDROID

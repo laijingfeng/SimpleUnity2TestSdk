@@ -1277,7 +1277,7 @@ GameObject:
   - 81: {fileID: 1919034499}
   - 114: {fileID: 1919034504}
   m_Layer: 0
-  m_Name: SDKManager
+  m_Name: SDKMgr
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
