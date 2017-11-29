@@ -21,6 +21,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     private void Init()
     {
         JerrySDKMgr_Init();
+        Bugly_Init();
 
 #if UNITY_EDITOR
         UnityEngine.Debug.LogWarning("Init Editor");

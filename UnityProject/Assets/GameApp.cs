@@ -28,6 +28,11 @@ public class GameApp : SingletonMono<GameApp>
         btnDoLogin.onClick.AddListener(() =>
         {
             SDKMgr.Inst.Login();
+            int[] aa = new int[2] { 1, 2 };
+            for (int i = 1; i < 3; i++)
+            {
+                aa[i] = aa[i - 1] + 1;
+            }
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
