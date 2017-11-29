@@ -9,7 +9,7 @@ import com.unity3d.player.UnityPlayerActivity;
 
 public class UnityProjectActivity extends UnityPlayerActivity {
 
-	private static String U3DReceiver = "SDKManager";
+	private static String U3DReceiver = "SDKMgr";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
