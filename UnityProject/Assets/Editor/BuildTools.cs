@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class BuildTools : Editor
 {
+#if UNITY_ANDROID
     [MenuItem("Tools/导出APK", false, 0)]
     static public void ExportAndroidApk()
     {
         DoSettings();
         string exportPath = string.Format("{0}/../{1}_{2}.apk",
             Application.dataPath, PlayerSettings.productName, System.DateTime.Now.ToString("HHmmss"));
-        DoBuild(exportPath, BuildOptions.None);
+        DoBuild(exportPath, BuildTarget.Android, BuildOptions.None);
     }
 
     [MenuItem("Tools/导出Android工程", false, 1)]
@@ -24,8 +25,29 @@ public class BuildTools : Editor
             Directory.Delete(exportPath, true);
         }
         Directory.CreateDirectory(exportPath);
-        DoBuild(exportPath, BuildOptions.AcceptExternalModificationsToPlayer);
+        DoBuild(exportPath, BuildTarget.Android, BuildOptions.AcceptExternalModificationsToPlayer);
     }
+
+    [MenuItem("Tools/仅仅做Android设置", false, 2)]
+    static public void JustDoSettings()
+    {
+        DoSettings();
+    }
+#endif
+
+#if UNITY_WEBGL
+    [MenuItem("Tools/导出WebGL", false, 3)]
+    static public void ExportWebGL()
+    {
+        string exportPath = Application.dataPath + "/../WebGL";
+        if (Directory.Exists(exportPath))
+        {
+            Directory.Delete(exportPath, true);
+        }
+        Directory.CreateDirectory(exportPath);
+        DoBuild(exportPath, BuildTarget.WebGL, BuildOptions.Il2CPP);
+    }
+#endif
 
     private static void DoSettings()
     {
@@ -40,7 +62,7 @@ public class BuildTools : Editor
 
     private static string[] GetLevels()
     {
-        if(EditorBuildSettings.scenes == null || EditorBuildSettings.scenes.Length <= 0)
+        if (EditorBuildSettings.scenes == null || EditorBuildSettings.scenes.Length <= 0)
         {
             return null;
         }
@@ -55,7 +77,7 @@ public class BuildTools : Editor
         return ret.ToArray();
     }
 
-    private static void DoBuild(string path, BuildOptions opt)
+    private static void DoBuild(string path, BuildTarget tar, BuildOptions opt)
     {
         string[] levels = GetLevels();
         if (levels == null || levels.Length <= 0)
@@ -65,7 +87,8 @@ public class BuildTools : Editor
         }
         BuildPipeline.BuildPlayer(levels,
         path,
-        BuildTarget.Android,
+        tar,
         opt);
+        Debug.Log(string.Format("build sucess to {0} at {1}", path, System.DateTime.Now));
     }
 }
