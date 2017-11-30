@@ -1,6 +1,7 @@
 ﻿using Jerry;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameApp : SingletonMono<GameApp>
 {
@@ -11,12 +12,14 @@ public class GameApp : SingletonMono<GameApp>
     private InputField input;
 
     public string m_DownloadPath;
+    private Text loginText;
 
     protected override void Awake()
     {
         base.Awake();
 
         btnDoLogin = this.transform.FindChild("doLogin").GetComponent<Button>();
+        loginText = btnDoLogin.transform.FindChild("Text").GetComponent<Text>();
         btnDoSwitchAccount = this.transform.FindChild("doSwitchAccount").GetComponent<Button>();
         btnTest = this.transform.FindChild("testBtn").GetComponent<Button>();
         tex = this.transform.FindChild("log/Viewport/Text").GetComponent<Text>();
@@ -29,8 +32,10 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoLogin.onClick.AddListener(() =>
         {
-            Application.OpenURL(m_DownloadPath);
+            //Application.OpenURL(m_DownloadPath);
             //SDKMgr.Inst.Login();
+            SDKMgr.Inst.DownloadApk(m_DownloadPath);
+            this.StartCoroutine(IE_RefreshPro());
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
@@ -45,6 +50,39 @@ public class GameApp : SingletonMono<GameApp>
                 btnTest.gameObject.AddComponent<TestOne>();
             }
         });
+    }
+
+    public class DownLoadPro
+    {
+        public int loadedSize = 0;
+        public int TotalSize = 0;
+
+        public string GetPro()
+        {
+            if (TotalSize == 0)
+            {
+                return "0%";
+            }
+            return ((loadedSize * 100f) / TotalSize) + "%";
+        }
+    }
+
+    private IEnumerator IE_RefreshPro()
+    {
+        while (true)
+        {
+            string pro = SDKMgr.Inst.GetDownloadPro();
+            if (string.IsNullOrEmpty(pro))
+            {
+                loginText.text = "0%";
+            }
+            else
+            {
+                DownLoadPro p = JsonUtility.FromJson<DownLoadPro>(pro);
+                loginText.text = p.GetPro();
+            }
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     void Update()
