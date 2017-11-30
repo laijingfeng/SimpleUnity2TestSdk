@@ -10,6 +10,8 @@ public class GameApp : SingletonMono<GameApp>
     private Text tex;
     private InputField input;
 
+    public string m_DownloadPath;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,12 +29,8 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoLogin.onClick.AddListener(() =>
         {
-            SDKMgr.Inst.Login();
-            int[] aa = new int[2] { 1, 2 };
-            for (int i = 1; i < 3; i++)
-            {
-                aa[i] = aa[i - 1] + 1;
-            }
+            Application.OpenURL(m_DownloadPath);
+            //SDKMgr.Inst.Login();
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
