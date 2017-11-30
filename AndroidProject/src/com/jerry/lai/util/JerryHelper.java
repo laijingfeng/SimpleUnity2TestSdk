@@ -10,6 +10,6 @@ public class JerryHelper {
 	 * log
 	 */
 	public static void log(String msg) {
-		// Log.d("Demo", msg);
+		//Log.d("Demo", msg);
 	}
 }

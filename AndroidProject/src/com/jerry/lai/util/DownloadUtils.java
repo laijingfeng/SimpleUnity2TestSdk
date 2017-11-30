@@ -1,8 +1,11 @@
 package com.jerry.lai.util;
 
+import com.google.gson.Gson;
+
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,25 +19,45 @@ public class DownloadUtils {
 	private DownloadManager downloadManager;
 	private Context mContext;
 	private long downloadId;
+	private Query dowloadQuery = null;
 
 	public DownloadUtils(Context context) {
 		this.mContext = context;
+	}
+
+	public String getDownloadPro() {
+		DownloadPro pro = new DownloadPro();
+		if (dowloadQuery != null && downloadManager != null) {
+			Cursor c = downloadManager.query(dowloadQuery);
+			if (c.moveToFirst()) {
+				pro.loadedSize = c
+						.getInt(c
+								.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+				pro.totalSize = c
+						.getInt(c
+								.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+			}
+			c.close();
+		}
+		return new Gson().toJson(pro);
 	}
 
 	public void downloadAPK(String url, String name) {
 		Request request = new Request(Uri.parse(url));
 		request.setAllowedOverRoaming(false);
 		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-		request.setTitle("版本更新");
-		request.setDescription("版本更新");
+		request.setTitle("下载");
+		request.setDescription("正在下载");
 		request.setVisibleInDownloadsUi(true);
 
-		request.setDestinationInExternalPublicDir(Environment
-				.getExternalStorageDirectory().getAbsolutePath(), name);
+		request.setDestinationInExternalPublicDir(
+				Environment.DIRECTORY_DOWNLOADS, name);
 
 		downloadManager = (DownloadManager) mContext
 				.getSystemService(Context.DOWNLOAD_SERVICE);
 		downloadId = downloadManager.enqueue(request);
+		dowloadQuery = new Query();
+		dowloadQuery.setFilterById(downloadId);
 		mContext.registerReceiver(receiver, new IntentFilter(
 				DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
@@ -47,9 +70,7 @@ public class DownloadUtils {
 	};
 
 	private void checkStatus() {
-		Query query = new Query();
-		query.setFilterById(downloadId);
-		Cursor c = downloadManager.query(query);
+		Cursor c = downloadManager.query(dowloadQuery);
 		if (c.moveToFirst()) {
 			int status = c.getInt(c
 					.getColumnIndex(DownloadManager.COLUMN_STATUS));
