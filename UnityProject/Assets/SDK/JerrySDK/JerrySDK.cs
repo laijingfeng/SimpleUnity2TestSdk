@@ -40,7 +40,6 @@ public class JerrySDK
         public string apkName;
     }
 
-    [Serializable]
     public class DownLoadPro
     {
         public int loadedSize;
