@@ -46,7 +46,7 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
     {
         if (m_SDK != null)
         {
-            m_SDK.Call<string>("getDownloadPro");
+            return m_SDK.Call<string>("getDownloadPro");
         }
         return base.GetDownloadPro();
     }

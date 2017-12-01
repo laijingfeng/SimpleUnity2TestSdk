@@ -68,8 +68,11 @@ public class GameApp : SingletonMono<GameApp>
             }
             else
             {
-                Debug.LogWarning(pro);
                 loginText.text = pro.GetPro();
+                if (pro.finish)
+                {
+                    break;
+                }
             }
             yield return new WaitForEndOfFrame();
         }

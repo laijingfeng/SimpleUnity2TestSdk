@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class JerrySDK
 {
@@ -39,13 +40,19 @@ public class JerrySDK
         public string apkName;
     }
 
+    [Serializable]
     public class DownLoadPro
     {
         public int loadedSize;
         public int totalSize;
+        public bool finish;
 
         public string GetPro()
         {
+            if (finish)
+            {
+                return "100%";
+            }
             if (totalSize == 0)
             {
                 return "0%";

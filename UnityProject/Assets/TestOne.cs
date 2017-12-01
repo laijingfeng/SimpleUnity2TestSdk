@@ -21,7 +21,7 @@ public class TestOne : MonoBehaviour
         int idx = 0;
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             tex.text = str[idx];
             idx = (idx + 1) % str.Length;
         }

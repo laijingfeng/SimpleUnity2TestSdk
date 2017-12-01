@@ -15,7 +15,6 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.jerry.lai.lib.LogHelper;
 
 public class DownloadUtils {
 	private DownloadManager downloadManager = null;
@@ -23,6 +22,7 @@ public class DownloadUtils {
 	private long downloadId;
 	private Query dowloadQuery = null;
 	private DownloadPar downloadPar = null;
+	private Boolean downloadFinish = false;
 
 	public DownloadUtils(Context context) {
 		this.mContext = context;
@@ -30,7 +30,9 @@ public class DownloadUtils {
 
 	public String getDownloadPro() {
 		DownloadPro pro = new DownloadPro();
-		if (dowloadQuery != null && downloadManager != null) {
+		if (downloadFinish) {
+			pro.finish = true;
+		} else if (dowloadQuery != null && downloadManager != null) {
 			Cursor c = downloadManager.query(dowloadQuery);
 			if (c.moveToFirst()) {
 				pro.loadedSize = c
@@ -46,6 +48,7 @@ public class DownloadUtils {
 	}
 
 	public void downloadApk(String par) {
+		downloadFinish = false;
 		downloadPar = new Gson().fromJson(par, DownloadPar.class);
 		if (downloadPar == null) {
 			return;
@@ -88,6 +91,7 @@ public class DownloadUtils {
 			case DownloadManager.STATUS_RUNNING:
 				break;
 			case DownloadManager.STATUS_SUCCESSFUL:
+				downloadFinish = true;
 				installAPK();
 				break;
 			case DownloadManager.STATUS_FAILED:
@@ -100,7 +104,6 @@ public class DownloadUtils {
 
 	private void installAPK() {
 		Uri downloadFileUri = getDownloadUri();
-		LogHelper.log(downloadFileUri.toString());
 		if (downloadFileUri != null) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setDataAndType(downloadFileUri,
@@ -110,12 +113,12 @@ public class DownloadUtils {
 			mContext.startActivity(intent);
 			mContext.unregisterReceiver(receiver);
 		}
+		dowloadQuery = null;
 	}
 
 	private Uri getDownloadUri() {
-		Uri downloadFileUri1 = downloadManager
-				.getUriForDownloadedFile(downloadId);
-		LogHelper.log(downloadFileUri1.toString());
+		// Uri downloadFileUri1 = downloadManager
+		// .getUriForDownloadedFile(downloadId);
 
 		if (downloadPar == null) {
 			return null;
