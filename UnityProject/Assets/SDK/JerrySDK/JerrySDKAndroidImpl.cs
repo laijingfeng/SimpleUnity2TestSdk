@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class JerrySDKAndroidImpl : JerrySDKImpl
 {
@@ -33,6 +32,23 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
             return m_SDK.Call<string>("getDeviceId");
         }
         return base.GetDeviceId();
+    }
+
+    public override void DownloadApk(string par)
+    {
+        if (m_SDK != null)
+        {
+            m_SDK.Call("downloadApk", par);
+        }
+    }
+
+    public override string GetDownloadPro()
+    {
+        if (m_SDK != null)
+        {
+            m_SDK.Call<string>("getDownloadPro");
+        }
+        return base.GetDownloadPro();
     }
 
     public void Log(string str)

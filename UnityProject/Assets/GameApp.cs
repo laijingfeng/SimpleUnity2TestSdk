@@ -1,7 +1,7 @@
-﻿using Jerry;
+﻿using System.Collections;
+using Jerry;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class GameApp : SingletonMono<GameApp>
 {
@@ -34,8 +34,13 @@ public class GameApp : SingletonMono<GameApp>
         {
             //Application.OpenURL(m_DownloadPath);
             //SDKMgr.Inst.Login();
-            SDKMgr.Inst.DownloadApk(m_DownloadPath);
-            this.StartCoroutine(IE_RefreshPro());
+            SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
+            {
+                url = m_DownloadPath,
+                apkName = "jerryTest",
+                noticeShowName = "Jerry",
+            });
+            this.StartCoroutine(IE_RefreshDownloadPro());
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
@@ -52,34 +57,19 @@ public class GameApp : SingletonMono<GameApp>
         });
     }
 
-    public class DownLoadPro
-    {
-        public int loadedSize = 0;
-        public int TotalSize = 0;
-
-        public string GetPro()
-        {
-            if (TotalSize == 0)
-            {
-                return "0%";
-            }
-            return ((loadedSize * 100f) / TotalSize) + "%";
-        }
-    }
-
-    private IEnumerator IE_RefreshPro()
+    private IEnumerator IE_RefreshDownloadPro()
     {
         while (true)
         {
-            string pro = SDKMgr.Inst.GetDownloadPro();
-            if (string.IsNullOrEmpty(pro))
+            JerrySDK.DownLoadPro pro = SDKMgr.Inst.JerrySDKMgr_GetDownloadPro();
+            if (pro == null)
             {
                 loginText.text = "0%";
             }
             else
             {
-                DownLoadPro p = JsonUtility.FromJson<DownLoadPro>(pro);
-                loginText.text = p.GetPro();
+                Debug.LogWarning(pro);
+                loginText.text = pro.GetPro();
             }
             yield return new WaitForEndOfFrame();
         }

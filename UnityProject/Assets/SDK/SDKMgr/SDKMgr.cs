@@ -21,7 +21,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     private void Init()
     {
         JerrySDKMgr_Init();
-        Bugly_Init();
+        //Bugly_Init();
 
 #if UNITY_EDITOR
         UnityEngine.Debug.LogWarning("Init Editor");
@@ -33,21 +33,6 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     }
 
     #region Unity2SDK
-
-    public void DownloadApk(string url)
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        SDKHelper.Inst.UnityCallAnroid("downloadApk", false, url);
-#endif
-    }
-
-    public string GetDownloadPro()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        return SDKHelper.Inst.UnityCallAnroid<string>("getDownloadPro", false);
-#endif
-        return null;
-    }
 
     /// <summary>
     /// 登录
