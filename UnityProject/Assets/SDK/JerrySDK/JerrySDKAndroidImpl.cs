@@ -38,7 +38,7 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
     {
         if (m_SDK != null)
         {
-            m_SDK.Call<int>("downloadApk", par);
+            return m_SDK.Call<int>("downloadApk", par);
         }
         return base.DownloadApk(par);
     }

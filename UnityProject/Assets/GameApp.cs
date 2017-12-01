@@ -2,6 +2,8 @@
 using Jerry;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System.Text;
 
 public class GameApp : SingletonMono<GameApp>
 {
@@ -63,7 +65,12 @@ public class GameApp : SingletonMono<GameApp>
 
     private void DoTest()
     {
-
+        string pdPath = PlatformUtil.GetPersistentDataPath() + "/ResVer.txt";
+        Debug.LogWarning("Exists:" + File.Exists(pdPath));
+        if (!File.Exists(pdPath))
+        {
+            File.WriteAllText(pdPath, "txt", Encoding.UTF8);
+        }
     }
 
     private IEnumerator IE_RefreshDownloadPro()
