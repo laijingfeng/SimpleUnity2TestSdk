@@ -25,23 +25,26 @@ public class UnityPluginInterface {
 		String imei = telephonyManager.getDeviceId();
 		return imei;
 	}
-	
+
 	/*
 	 * 下载apk
 	 */
-	public void downloadApk(String par) {
+	public int downloadApk(String par) {
 		downloadUtils = new DownloadUtil(mUnityActivity);
-		downloadUtils.downloadApk(par);
+		return downloadUtils.downloadApk(par);
 	}
-	
+
 	public String getDownloadPro() {
 		if (downloadUtils == null) {
 			return null;
 		}
 		return downloadUtils.getDownloadPro();
 	}
-	
+
 	public void doTest() {
-		
+		LogUtil.getInstance().log(
+				"id:"
+						+ SpUtil.getInstance(mUnityActivity).getLong(
+								"JerrySaveDownloadId", -1L));
 	}
 }

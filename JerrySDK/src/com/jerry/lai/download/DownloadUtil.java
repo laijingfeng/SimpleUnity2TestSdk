@@ -199,7 +199,7 @@ public class DownloadUtil {
 			mContext.startActivity(intent);
 			mContext.unregisterReceiver(receiver);
 		}
-		SpUtil.getInstance(mContext).remove(DOWNLOAD_SAVE_ID);
+		//notice : can not remove saved is here, because use can cancel install
 	}
 
 	private Uri getDownloadUri() {
