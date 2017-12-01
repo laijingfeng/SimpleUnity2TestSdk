@@ -1,7 +1,5 @@
 package com.jerry.lai.test;
 
-import com.jerry.lai.lib.LogHelper;
-
 import android.app.Activity;
 
 /*
@@ -11,12 +9,10 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		LogHelper.log("onResume");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		LogHelper.log("onPause");
 	}
 }

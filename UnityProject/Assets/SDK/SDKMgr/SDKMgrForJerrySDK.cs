@@ -9,12 +9,18 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         m_JerrySDK = new JerrySDK(this.gameObject.name);
     }
 
-    public void JerrySDKMgr_DownloadApk(JerrySDK.DownloadPar par)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="par">-1参数异常；-2禁用了下载；0正常；1下载完成，进入安装</param>
+    /// <returns></returns>
+    public int JerrySDKMgr_DownloadApk(JerrySDK.DownloadPar par)
     {
         if (m_JerrySDK != null)
         {
-            m_JerrySDK.DownloadApk(par);
+            return m_JerrySDK.DownloadApk(par);
         }
+        return -2;
     }
 
     public JerrySDK.DownLoadPro JerrySDKMgr_GetDownloadPro()

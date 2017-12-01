@@ -10,8 +10,14 @@ public class JerrySDKImpl
         return string.Empty;
     }
 
-    public virtual void DownloadApk(string par)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="par">-1参数异常；-2禁用了下载；0正常；1下载完成，进入安装</param>
+    /// <returns></returns>
+    public virtual int DownloadApk(string par)
     {
+        return -2;
     }
 
     public virtual string GetDownloadPro()

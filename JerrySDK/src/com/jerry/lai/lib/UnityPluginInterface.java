@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.jerry.lai.download.DownloadUtils;
+import com.jerry.lai.download.DownloadUtil;
 
 public class UnityPluginInterface {
 	private String mUnityMgr;
 	private Activity mUnityActivity;
-	private DownloadUtils downloadUtils = null;
+	private DownloadUtil downloadUtils = null;
 
 	public UnityPluginInterface(String mgr, Context unityActivity) {
 		mUnityMgr = mgr;
@@ -30,7 +30,7 @@ public class UnityPluginInterface {
 	 * 下载apk
 	 */
 	public void downloadApk(String par) {
-		downloadUtils = new DownloadUtils(mUnityActivity);
+		downloadUtils = new DownloadUtil(mUnityActivity);
 		downloadUtils.downloadApk(par);
 	}
 	

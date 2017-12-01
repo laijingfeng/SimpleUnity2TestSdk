@@ -12,12 +12,18 @@ public class JerrySDK
 #endif
     }
 
-    public void DownloadApk(DownloadPar par)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="par">-1参数异常；-2禁用了下载；0正常；1下载完成，进入安装</param>
+    /// <returns></returns>
+    public int DownloadApk(DownloadPar par)
     {
         if (sdk != null)
         {
-            sdk.DownloadApk(JsonUtility.ToJson(par));
+            return sdk.DownloadApk(JsonUtility.ToJson(par));
         }
+        return -2;
     }
 
     public DownLoadPro GetDownLoadPro()

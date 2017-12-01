@@ -34,12 +34,13 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
         return base.GetDeviceId();
     }
 
-    public override void DownloadApk(string par)
+    public override int DownloadApk(string par)
     {
         if (m_SDK != null)
         {
-            m_SDK.Call("downloadApk", par);
+            m_SDK.Call<int>("downloadApk", par);
         }
+        return base.DownloadApk(par);
     }
 
     public override string GetDownloadPro()

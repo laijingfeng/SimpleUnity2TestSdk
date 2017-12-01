@@ -32,15 +32,17 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoLogin.onClick.AddListener(() =>
         {
-            //Application.OpenURL(m_DownloadPath);
             //SDKMgr.Inst.Login();
-            SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
+            int status = SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
             {
                 url = m_DownloadPath,
                 apkName = "jerryTest",
                 noticeShowName = "Jerry",
             });
-            this.StartCoroutine(IE_RefreshDownloadPro());
+            if (status == 0)
+            {
+                this.StartCoroutine(IE_RefreshDownloadPro());
+            }
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
