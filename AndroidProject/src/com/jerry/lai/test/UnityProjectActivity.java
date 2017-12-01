@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.google.gson.Gson;
-import com.jerry.lai.util.DownloadPro;
-import com.jerry.lai.util.DownloadUtils;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
@@ -19,20 +17,6 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		super.onCreate(savedInstanceState);
 		UnitySplashExtra.getInstance().onCreate(this);
 	};
-
-	private DownloadUtils downloadUtils = null;
-
-	public void downloadApk(String url) {
-		downloadUtils = new DownloadUtils(UnityProjectActivity.this);
-		downloadUtils.downloadAPK(url, "jerry.apk");
-	}
-
-	public String getDownloadPro() {
-		if (downloadUtils == null) {
-			return null;
-		}
-		return downloadUtils.getDownloadPro();
-	}
 
 	public UnityPlayer getUnityPlayer() {
 		return mUnityPlayer;
