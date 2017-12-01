@@ -24,4 +24,11 @@ public class JerrySDKImpl
     {
         return string.Empty;
     }
+
+    /// <summary>
+    /// 测试
+    /// </summary>
+    public virtual void DoTest()
+    {
+    }
 }

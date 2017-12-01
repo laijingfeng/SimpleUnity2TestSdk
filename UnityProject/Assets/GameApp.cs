@@ -47,7 +47,9 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
-            SDKMgr.Inst.SwitchAccout();
+            //SDKMgr.Inst.SwitchAccout();
+            DoTest();
+            SDKMgr.Inst.JerrySDKMgr_DoTest();
         });
 
         btnTest.onClick.AddListener(() =>
@@ -57,6 +59,11 @@ public class GameApp : SingletonMono<GameApp>
                 btnTest.gameObject.AddComponent<TestOne>();
             }
         });
+    }
+
+    private void DoTest()
+    {
+
     }
 
     private IEnumerator IE_RefreshDownloadPro()

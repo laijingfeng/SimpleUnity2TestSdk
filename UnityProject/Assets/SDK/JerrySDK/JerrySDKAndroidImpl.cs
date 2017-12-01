@@ -52,6 +52,14 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
         return base.GetDownloadPro();
     }
 
+    public override void DoTest()
+    {
+        if (m_SDK != null)
+        {
+            m_SDK.Call("doTest");
+        }
+    }
+
     public void Log(string str)
     {
         UnityEngine.Debug.LogWarning(str);

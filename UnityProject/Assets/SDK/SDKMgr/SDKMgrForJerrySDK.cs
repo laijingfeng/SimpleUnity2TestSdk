@@ -31,4 +31,12 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         }
         return null;
     }
+
+    public void JerrySDKMgr_DoTest()
+    {
+        if (m_JerrySDK != null)
+        {
+            m_JerrySDK.DoTest();
+        }
+    }
 }

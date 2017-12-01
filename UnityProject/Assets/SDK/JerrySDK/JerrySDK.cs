@@ -39,6 +39,14 @@ public class JerrySDK
         return null;
     }
 
+    public void DoTest()
+    {
+        if (sdk != null)
+        {
+            sdk.DoTest();
+        }
+    }
+
     public class DownloadPar
     {
         public string url;
