@@ -40,4 +40,8 @@ public class UnityPluginInterface {
 		}
 		return downloadUtils.getDownloadPro();
 	}
+	
+	public void doTest() {
+		
+	}
 }
