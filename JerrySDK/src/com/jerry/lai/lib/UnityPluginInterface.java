@@ -9,7 +9,6 @@ import com.jerry.lai.download.DownloadUtil;
 public class UnityPluginInterface {
 	private String mUnityMgr;
 	private Activity mUnityActivity;
-	private DownloadUtil downloadUtils = null;
 
 	public UnityPluginInterface(String mgr, Context unityActivity) {
 		mUnityMgr = mgr;
@@ -30,15 +29,21 @@ public class UnityPluginInterface {
 	 * 下载apk
 	 */
 	public int downloadApk(String par) {
-		downloadUtils = new DownloadUtil(mUnityActivity);
-		return downloadUtils.downloadApk(par);
+		return DownloadUtil.getInstance(mUnityActivity).downloadApk(par);
 	}
 
 	public String getDownloadPro() {
-		if (downloadUtils == null) {
-			return null;
+		return DownloadUtil.getInstance(mUnityActivity).getDownloadPro();
+	}
+
+	/*
+	 * clean old version cache
+	 */
+	public void cleanCache() {
+		if (mUnityActivity != null) {
+			SpUtil.getInstance(mUnityActivity).remove(
+					DownloadUtil.DOWNLOAD_SAVE_ID);
 		}
-		return downloadUtils.getDownloadPro();
 	}
 
 	public void doTest() {

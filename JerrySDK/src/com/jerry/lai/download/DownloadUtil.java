@@ -20,7 +20,7 @@ import com.jerry.lai.lib.SpUtil;
 public class DownloadUtil {
 	private DownloadManager mDownloadManager = null;
 	private Context mContext = null;
-	private static final String DOWNLOAD_SAVE_ID = "JerrySaveDownloadId";
+	public static final String DOWNLOAD_SAVE_ID = "JerrySaveDownloadId";
 
 	/*
 	 * now download id
@@ -87,7 +87,7 @@ public class DownloadUtil {
 		} else if (DM() != null) {
 			DownloadManager.Query query = new DownloadManager.Query()
 					.setFilterById(mDownloadId);
-			Cursor c = mDownloadManager.query(query);
+			Cursor c = DM().query(query);
 			if (c.moveToFirst()) {
 				pro.loadedSize = c
 						.getInt(c
@@ -130,6 +130,7 @@ public class DownloadUtil {
 			} else if (status == DownloadManager.STATUS_RUNNING) {
 				// downloading
 			} else {
+				SpUtil.getInstance(mContext).remove(DOWNLOAD_SAVE_ID);
 				newDownload();
 			}
 		} else {
@@ -165,7 +166,7 @@ public class DownloadUtil {
 	private void checkStatus() {
 		DownloadManager.Query query = new DownloadManager.Query()
 				.setFilterById(mDownloadId);
-		Cursor c = mDownloadManager.query(query);
+		Cursor c = DM().query(query);
 		if (c.moveToFirst()) {
 			int status = c.getInt(c
 					.getColumnIndex(DownloadManager.COLUMN_STATUS));
@@ -199,7 +200,7 @@ public class DownloadUtil {
 			mContext.startActivity(intent);
 			mContext.unregisterReceiver(receiver);
 		}
-		//notice : can not remove saved is here, because use can cancel install
+		// notice : can not remove saved is here, because use can cancel install
 	}
 
 	private Uri getDownloadUri() {
