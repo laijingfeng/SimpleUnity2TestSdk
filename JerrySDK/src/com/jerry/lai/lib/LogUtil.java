@@ -2,13 +2,15 @@ package com.jerry.lai.lib;
 
 import android.util.Log;
 
-/*
+/**
  * 辅助Log
+ * @author LaiJingfeng
+ *
  */
 public class LogUtil {
 	private static final String TAG = "Jerry";
 	private static LogUtil mInstance;
-	private boolean isShowLog = true;
+	private boolean isShowLog = false;
 
 	public static LogUtil getInstance() {
 		if (null == mInstance) {
@@ -21,8 +23,9 @@ public class LogUtil {
 		return mInstance;
 	}
 
-	/*
+	/**
 	 * log
+	 * @param msg
 	 */
 	public void log(String msg) {
 		if (isShowLog) {

@@ -16,25 +16,26 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jerry.lai.lib.SpUtil;
+import com.jerry.lai.lib.UnityPluginInterface;
 
 public class DownloadUtil {
 	private DownloadManager mDownloadManager = null;
 	private Context mContext = null;
 	public static final String DOWNLOAD_SAVE_ID = "JerrySaveDownloadId";
 
-	/*
+	/**
 	 * now download id
 	 */
 	private long mDownloadId;
-	/*
+	/**
 	 * now download parameter
 	 */
 	private DownloadPar downloadPar = null;
-	/*
+	/**
 	 * is now download finish
 	 */
 	private Boolean downloadFinish = false;
-	/*
+	/**
 	 * instance
 	 */
 	private static DownloadUtil mInstance;
@@ -52,8 +53,10 @@ public class DownloadUtil {
 		this.mContext = context;
 	}
 
-	/*
+	/**
 	 * DownloadManager
+	 * 
+	 * @return
 	 */
 	private DownloadManager DM() {
 		if (mDownloadManager == null && mContext != null) {
@@ -101,8 +104,12 @@ public class DownloadUtil {
 		return new Gson().toJson(pro);
 	}
 
-	/*
-	 * -1参数异常；-2禁用了下载；0正常；1下载完成，进入安装
+	/**
+	 * 下载
+	 * 
+	 * @param par
+	 *            -1参数异常；-2禁用了下载；0正常；1下载完成，进入安装
+	 * @return
 	 */
 	public int downloadApk(String par) {
 		downloadFinish = false;
@@ -190,6 +197,8 @@ public class DownloadUtil {
 
 	private void installAPK() {
 		downloadFinish = true;
+		UnityPluginInterface.SendMsg2Unity("SDK2Unity_DownloadFinishCallback",
+				"");
 		Uri downloadFileUri = getDownloadUri();
 		if (downloadFileUri != null) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -223,8 +232,9 @@ public class DownloadUtil {
 		return null;
 	}
 
-	/*
+	/**
 	 * 是否可以下载
+	 * @return
 	 */
 	private boolean canDownloadState() {
 		try {

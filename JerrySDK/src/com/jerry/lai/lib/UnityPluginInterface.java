@@ -5,9 +5,10 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.jerry.lai.download.DownloadUtil;
+import com.unity3d.player.UnityPlayer;
 
 public class UnityPluginInterface {
-	private String mUnityMgr;
+	private static String mUnityMgr;
 	private Activity mUnityActivity;
 
 	public UnityPluginInterface(String mgr, Context unityActivity) {
@@ -15,8 +16,9 @@ public class UnityPluginInterface {
 		mUnityActivity = (Activity) unityActivity;
 	}
 
-	/*
+	/**
 	 * 获取设备号
+	 * @return
 	 */
 	public String getDeviceId() {
 		TelephonyManager telephonyManager = (TelephonyManager) mUnityActivity
@@ -25,8 +27,10 @@ public class UnityPluginInterface {
 		return imei;
 	}
 
-	/*
+	/**
 	 * 下载apk
+	 * @param par
+	 * @return
 	 */
 	public int downloadApk(String par) {
 		return DownloadUtil.getInstance(mUnityActivity).downloadApk(par);
@@ -36,7 +40,7 @@ public class UnityPluginInterface {
 		return DownloadUtil.getInstance(mUnityActivity).getDownloadPro();
 	}
 
-	/*
+	/**
 	 * clean old version cache
 	 */
 	public void cleanCache() {
@@ -44,6 +48,17 @@ public class UnityPluginInterface {
 			SpUtil.getInstance(mUnityActivity).remove(
 					DownloadUtil.DOWNLOAD_SAVE_ID);
 		}
+	}
+
+	/**
+	 * SendMsg2Unity
+	 * 
+	 * @param funcName
+	 * @param parameter
+	 *            notice : can not be null
+	 */
+	public static void SendMsg2Unity(String funcName, String parameter) {
+		UnityPlayer.UnitySendMessage(mUnityMgr, funcName, parameter);
 	}
 
 	public void doTest() {
