@@ -4,7 +4,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
 {
     private JerrySDK m_JerrySDK = null;
 
-    private void JerrySDKMgr_Init()
+    private void JerrySDKMgr_Create()
     {
         m_JerrySDK = new JerrySDK(this.gameObject.name);
     }
@@ -37,6 +37,14 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         if (m_JerrySDK != null)
         {
             m_JerrySDK.DoTest();
+        }
+    }
+
+    public void JerrySDKMgr_CleanCache()
+    {
+        if (m_JerrySDK != null)
+        {
+            m_JerrySDK.CleanCache();
         }
     }
 }

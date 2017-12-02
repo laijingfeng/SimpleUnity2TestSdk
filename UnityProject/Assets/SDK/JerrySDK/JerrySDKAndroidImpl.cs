@@ -60,9 +60,17 @@ public class JerrySDKAndroidImpl : JerrySDKImpl
         }
     }
 
+    public override void CleanCache()
+    {
+        if (m_SDK != null)
+        {
+            m_SDK.Call("cleanCache");
+        }
+    }
+
     public void Log(string str)
     {
-        UnityEngine.Debug.LogWarning(str);
+        //UnityEngine.Debug.LogWarning(str);
     }
 #endif
 }

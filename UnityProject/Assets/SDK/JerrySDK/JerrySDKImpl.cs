@@ -31,4 +31,8 @@ public class JerrySDKImpl
     public virtual void DoTest()
     {
     }
+
+    public virtual void CleanCache()
+    {
+    }
 }

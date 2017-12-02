@@ -47,6 +47,14 @@ public class JerrySDK
         }
     }
 
+    public void CleanCache()
+    {
+        if (sdk != null)
+        {
+            sdk.CleanCache();
+        }
+    }
+
     public class DownloadPar
     {
         public string url;

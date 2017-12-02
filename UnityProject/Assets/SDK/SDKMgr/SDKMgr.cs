@@ -20,7 +20,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
 
     private void Init()
     {
-        JerrySDKMgr_Init();
+        JerrySDKMgr_Create();
         //Bugly_Init();
 
 #if UNITY_EDITOR
