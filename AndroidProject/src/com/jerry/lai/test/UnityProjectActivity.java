@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.google.gson.Gson;
+import com.igexin.sdk.PushManager;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
@@ -16,6 +17,8 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		setTheme(R.style.UnityThemeSelector);
 		super.onCreate(savedInstanceState);
 		UnitySplashExtra.getInstance().onCreate(this);
+		PushManager.getInstance().initialize(this.getApplicationContext(),
+				com.jerry.lai.test.GeTuiPushService.class);
 	};
 
 	public UnityPlayer getUnityPlayer() {

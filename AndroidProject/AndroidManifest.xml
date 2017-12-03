@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myjoy.petsplanet.linekong"
+    package="com.jerry.lai.test"
     android:installLocation="preferExternal"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -75,19 +75,18 @@
     <!-- 浮动通知权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 自定义权限 -->
-    <uses-permission android:name="getui.permission.GetuiService.com.myjoy.petsplanet.linekong" />
+    <uses-permission android:name="getui.permission.GetuiService.com.jerry.lai.test" />
     <!-- 替换为第三方应用的包名 -->
     <permission
-        android:name="getui.permission.GetuiService.com.myjoy.petsplanet.linekong"
+        android:name="getui.permission.GetuiService.com.jerry.lai.test"
         android:protectionLevel="normal" >
     </permission>
- <!-- 替换为第三方应用的包名 -->
+    <!-- 替换为第三方应用的包名 -->
     <!-- 个推SDK权限配置结束 -->
 
     <application
         android:name="com.jerry.lai.test.UnityProjectApplication"
         android:allowBackup="true"
-        android:debuggable="false"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:theme="@style/UnityThemeSelector" >
@@ -137,15 +136,15 @@
         <!-- 配置的第三方参数属性 -->
         <meta-data
             android:name="PUSH_APPID"
-            android:value="YWj7arPMFr6fOPzkUavdH9" />
+            android:value="S9usr7b5Ho5A9XxhSKwdc" />
         <!-- 替换为第三方应用的APPID -->
         <meta-data
             android:name="PUSH_APPKEY"
-            android:value="AgjuVwWDgc8VAoR5DBtlN9" />
+            android:value="YcE2ik2WPd6EL1JhWQEhf9" />
         <!-- 替换为第三方应用的APPKEY -->
         <meta-data
             android:name="PUSH_APPSECRET"
-            android:value="M1OQk2BTXVAQohYmZFPFs5" />
+            android:value="wDvXNpuO5oA4Ip1HoXvXQ9" />
         <!-- 替换为第三方应用的APPSECRET -->
         <!-- 配置SDK核心服务 -->
         <service
@@ -156,6 +155,12 @@
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.service.message" />
             </intent-filter>
+        </service>
+        <service
+            android:name="com.jerry.lai.test.GeTuiPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice" >
         </service>
 
         <receiver android:name="com.igexin.sdk.PushReceiver" >
