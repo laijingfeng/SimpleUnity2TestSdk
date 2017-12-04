@@ -153,7 +153,7 @@ public class DownloadUtil {
 		request.setTitle(downloadPar.noticeShowName);
 		request.setDescription(downloadPar.noticeShowName);
 		request.setVisibleInDownloadsUi(true);
-		request.setDestinationInExternalFilesDir(mContext,
+		request.setDestinationInExternalPublicDir(
 				Environment.DIRECTORY_DOWNLOADS, downloadPar.apkName + ".apk");
 
 		mDownloadId = DM().enqueue(request);
@@ -234,6 +234,7 @@ public class DownloadUtil {
 
 	/**
 	 * 是否可以下载
+	 * 
 	 * @return
 	 */
 	private boolean canDownloadState() {
