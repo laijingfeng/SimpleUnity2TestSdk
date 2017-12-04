@@ -17,13 +17,24 @@ public class UnityProjectActivity extends UnityPlayerActivity {
 		setTheme(R.style.UnityThemeSelector);
 		super.onCreate(savedInstanceState);
 		UnitySplashExtra.getInstance().onCreate(this);
-		PushManager.getInstance().initialize(this.getApplicationContext(),
-				com.jerry.lai.test.GeTuiPushService.class);
+		createGeTui();
 	};
 
 	public UnityPlayer getUnityPlayer() {
 		return mUnityPlayer;
 	}
+
+	// region GeTui
+
+	private void createGeTui() {
+		PushManager.getInstance().initialize(this.getApplicationContext(),
+				com.jerry.lai.getui.GeTuiPushService.class);
+		PushManager.getInstance().registerPushIntentService(
+				this.getApplicationContext(),
+				com.jerry.lai.getui.GeTuiIntentService.class);
+	}
+
+	// endregion GeTui
 
 	// region ToUnity
 

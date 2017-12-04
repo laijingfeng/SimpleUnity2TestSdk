@@ -1,4 +1,4 @@
-package com.jerry.lai.test;
+package com.jerry.lai.getui;
 
 import android.app.Service;
 import android.content.Intent;

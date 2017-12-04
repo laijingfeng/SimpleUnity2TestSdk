@@ -157,11 +157,12 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.jerry.lai.test.GeTuiPushService"
+            android:name="com.jerry.lai.getui.GeTuiPushService"
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice" >
         </service>
+        <service android:name="com.jerry.lai.getui.GeTuiIntentService" />
 
         <receiver android:name="com.igexin.sdk.PushReceiver" >
             <intent-filter>
