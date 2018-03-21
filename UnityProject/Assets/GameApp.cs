@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Text;
+#if UNITY_IOS
+using System.Runtime.InteropServices;
+#endif
 
 public class GameApp : SingletonMono<GameApp>
 {
@@ -49,9 +52,11 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
+            AddLog("xxx");
+            //c_ctest();
             //SDKMgr.Inst.SwitchAccout();
-            DoTest();
-            SDKMgr.Inst.JerrySDKMgr_DoTest();
+            //DoTest();
+            //SDKMgr.Inst.JerrySDKMgr_DoTest();
         });
 
         btnTest.onClick.AddListener(() =>
@@ -129,6 +134,10 @@ public class GameApp : SingletonMono<GameApp>
         PlayerPrefs.SetString("testSave", input.text + dataSaveTag);
     }
 
+    /// <summary>
+    /// 增加日志
+    /// </summary>
+    /// <param name="msg"></param>
     public void AddLog(string msg)
     {
         if (tex == null
@@ -154,4 +163,9 @@ public class GameApp : SingletonMono<GameApp>
     {
         AddLog("DoSwitchAccountCallback:" + info);
     }
+
+#if UNITY_IOS
+    //[DllImport("__Internal")]
+    //private static extern void c_ctest();
+#endif
 }
