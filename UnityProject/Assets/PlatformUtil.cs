@@ -14,7 +14,7 @@ namespace Jerry
 #elif UNITY_IOS
             Platform.IOS;
 #elif UNITY_WEBGL
- Platform.WebGL;
+            Platform.WebGL;
 #else
             Platform.UnKnow;
 #endif
