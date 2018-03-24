@@ -10,7 +10,20 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     }
 
     /// <summary>
-    /// 
+    /// 获取设备ID
+    /// </summary>
+    /// <returns></returns>
+    public string JerrySDKMgr_GetDeviceId()
+    {
+        if (m_JerrySDK != null)
+        {
+            return m_JerrySDK.GetDeviceId();
+        }
+        return string.Empty;
+    }
+
+    /// <summary>
+    /// -1参数异常；-2禁用了下载；0正常；1下载完成，进入安装
     /// </summary>
     /// <param name="par">-1参数异常；-2禁用了下载；0正常；1下载完成，进入安装</param>
     /// <returns></returns>
@@ -32,6 +45,13 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         return null;
     }
 
+    private void SDK2Unity_DownloadFinishCallback(string data)
+    {
+    }
+
+    /// <summary>
+    /// 仅仅是测试
+    /// </summary>
     public void JerrySDKMgr_DoTest()
     {
         if (m_JerrySDK != null)
@@ -46,5 +66,22 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         {
             m_JerrySDK.CleanCache();
         }
+    }
+
+    public void JerrySDKMgr_CopyTextToClipboard(string str)
+    {
+        if (m_JerrySDK != null)
+        {
+            m_JerrySDK.CopyTextToClipboard(str);
+        }
+    }
+
+    public string JerrySDKMgr_GetTextFromClipboard()
+    {
+        if (m_JerrySDK != null)
+        {
+            return m_JerrySDK.GetTextFromClipboard();
+        }
+        return string.Empty;
     }
 }

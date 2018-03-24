@@ -13,6 +13,19 @@ public class JerrySDK
     }
 
     /// <summary>
+    /// 获取设备ID
+    /// </summary>
+    /// <returns></returns>
+    public string GetDeviceId()
+    {
+        if (sdk != null)
+        {
+            return sdk.GetDeviceId();
+        }
+        return string.Empty;
+    }
+
+    /// <summary>
     /// 
     /// </summary>
     /// <param name="par">-1参数异常；-2禁用了下载；0正常；1下载完成，进入安装</param>
@@ -39,6 +52,9 @@ public class JerrySDK
         return null;
     }
 
+    /// <summary>
+    /// 仅仅是测试
+    /// </summary>
     public void DoTest()
     {
         if (sdk != null)
@@ -53,6 +69,23 @@ public class JerrySDK
         {
             sdk.CleanCache();
         }
+    }
+
+    public void CopyTextToClipboard(string str)
+    {
+        if (sdk != null)
+        {
+            sdk.CopyTextToClipboard(str);
+        }
+    }
+
+    public string GetTextFromClipboard()
+    {
+        if (sdk != null)
+        {
+            return sdk.GetTextFromClipboard();
+        }
+        return string.Empty;
     }
 
     public class DownloadPar

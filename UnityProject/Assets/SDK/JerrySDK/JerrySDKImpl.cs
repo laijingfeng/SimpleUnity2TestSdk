@@ -20,6 +20,10 @@ public class JerrySDKImpl
         return -2;
     }
 
+    /// <summary>
+    /// 获取下载进度
+    /// </summary>
+    /// <returns></returns>
     public virtual string GetDownloadPro()
     {
         return string.Empty;
@@ -34,5 +38,14 @@ public class JerrySDKImpl
 
     public virtual void CleanCache()
     {
+    }
+
+    public virtual void CopyTextToClipboard(string str)
+    {
+    }
+
+    public virtual string GetTextFromClipboard()
+    {
+        return string.Empty;
     }
 }

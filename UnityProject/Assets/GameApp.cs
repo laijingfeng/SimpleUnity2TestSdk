@@ -1,10 +1,10 @@
 ﻿using System.Collections;
+using System.IO;
+using System.Text;
 using Jerry;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-using System.Text;
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
 using System.Runtime.InteropServices;
 #endif
 
@@ -53,6 +53,7 @@ public class GameApp : SingletonMono<GameApp>
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
             AddLog("xxx");
+            UnityEngine.Debug.LogError("just test");
             //c_ctest();
             //SDKMgr.Inst.SwitchAccout();
             //DoTest();
@@ -164,7 +165,7 @@ public class GameApp : SingletonMono<GameApp>
         AddLog("DoSwitchAccountCallback:" + info);
     }
 
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
     //[DllImport("__Internal")]
     //private static extern void c_ctest();
 #endif
