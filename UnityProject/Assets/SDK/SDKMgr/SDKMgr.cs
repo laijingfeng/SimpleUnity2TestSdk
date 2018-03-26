@@ -9,6 +9,13 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         Init();
     }
 
+    #region 数据
+
+    [HideInInspector]
+    public string IDFA;
+
+    #endregion 数据
+
     /// <summary>
     /// 登录回包数据
     /// </summary>
@@ -24,7 +31,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         Bugly_Init();
 
 #if UNITY_EDITOR
-        UnityEngine.Debug.LogWarning("Init Editor");
+        UnityEngine.Debug.LogWarning("SDKMgr Init In UNITY_EDITOR");
 #elif UNITY_ANDROID
         SDKHelper.Inst.UnityCallAnroid("DoHideAndroidSplash", false);
 #else

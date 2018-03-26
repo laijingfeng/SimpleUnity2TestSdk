@@ -84,4 +84,11 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
         }
         return string.Empty;
     }
+
+#if UNITY_IOS
+    private void SDK2Unity_GetIDFACallback(string idfa)
+    {
+        SDKMgr.Inst.IDFA = idfa;
+    }
+#endif
 }

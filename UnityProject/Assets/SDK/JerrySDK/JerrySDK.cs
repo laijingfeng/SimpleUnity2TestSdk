@@ -7,8 +7,10 @@ public class JerrySDK
 
     public JerrySDK(string mgr)
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
         sdk = new JerrySDKAndroidImpl(mgr);
+#elif UNITY_IOS && !UNITY_EDITOR
+        sdk = new JerrySDKiOSImpl();
 #endif
     }
 

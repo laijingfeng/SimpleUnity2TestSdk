@@ -1,22 +1,11 @@
 ﻿#import "JerrySDKBridge.h"
+#import <AdSupport/AdSupport.h>
 
 @implementation JerrySDKBridge
-
-+ (int)Add:(int)a and:(int)b{
-    return a + b;
-}
-
+void __getIDFA (){
+    const char* gameObject = "SDKMgr";
+    const char* functionname = "SDK2Unity_GetIDFACallback";
+    NSString *str = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    UnitySendMessage(gameObject, functionname, [str UTF8String]);
+};
 @end
-
-#if defined (__cplusplus)
-extern "C"
-{
-#endif
-    
-    int AddC(int a, int b){
-        return [JerrySDKBridge Add:a and:b];
-    }
-    
-#if defined (__cplusplus)
-}
-#endif

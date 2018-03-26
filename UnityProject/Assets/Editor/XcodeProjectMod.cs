@@ -24,21 +24,37 @@ public class XcodeProjectMod : MonoBehaviour
         pbxProject.ReadFromFile(projectPath);
         string targetGuid = pbxProject.TargetGuidByName("Unity-iPhone");
 
-        //添加flag，bugly需要
-        pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");
+        //添加flag
+        pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");//for bugly
         //关闭Bitcode
         pbxProject.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");
+        
+        pbxProject.SetBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(inherited)");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries/Plugins/Bugly/iOS");//for bugly
 
-        // 添加framwrok，bugly需要的
-        pbxProject.AddFrameworkToProject(targetGuid, "Security.framework", false);
-        pbxProject.AddFrameworkToProject(targetGuid, "SystemConfiguration.framework", false);
-        pbxProject.AddFrameworkToProject(targetGuid, "JavaScriptCore.framework", true);
+        //Windows下自动导出的部分斜杠不对，重新设置一次
+        pbxProject.SetBuildProperty(targetGuid, "FRAMEWORK_SEARCH_PATHS", "$(inherited)");
+        pbxProject.AddBuildProperty(targetGuid, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/Frameworks/Plugins/Bugly/iOS");//for bugly
+
+        //Windows下自动导出的部分斜杠不对，重新设置一次
+        pbxProject.SetBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(inherited)");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
+        pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries/Plugins/Bugly/iOS");//for bugly
+
+        //添加framwrok
+        pbxProject.AddFrameworkToProject(targetGuid, "Security.framework", false);//for bugly,idfa
+        pbxProject.AddFrameworkToProject(targetGuid, "SystemConfiguration.framework", false);//for bugly
+        pbxProject.AddFrameworkToProject(targetGuid, "JavaScriptCore.framework", true);//for bugly
+        pbxProject.AddFrameworkToProject(targetGuid, "AdSupport.framework", true);//for idfa
 
         //添加lib
-        AddLibToProject(pbxProject, targetGuid, "libc++.tbd");
-        AddLibToProject(pbxProject, targetGuid, "libz.tbd");
+        AddLibToProject(pbxProject, targetGuid, "libc++.tbd");//for bugly
+        AddLibToProject(pbxProject, targetGuid, "libz.tbd");//for bugly
 
-        // 应用修改
+        //应用修改
         File.WriteAllText(projectPath, pbxProject.WriteToString());
     }
 

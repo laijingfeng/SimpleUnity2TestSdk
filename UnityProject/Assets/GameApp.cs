@@ -4,9 +4,6 @@ using System.Text;
 using Jerry;
 using UnityEngine;
 using UnityEngine.UI;
-#if UNITY_IOS && !UNITY_EDITOR
-using System.Runtime.InteropServices;
-#endif
 
 public class GameApp : SingletonMono<GameApp>
 {
@@ -52,7 +49,9 @@ public class GameApp : SingletonMono<GameApp>
 
         btnDoSwitchAccount.onClick.AddListener(() =>
         {
-            AddLog("xxx");
+            SDKMgr.Inst.JerrySDKMgr_GetDeviceId();
+            AddLog("xxx id:" + SDKMgr.Inst.IDFA);
+
             UnityEngine.Debug.LogError("just test");
             //c_ctest();
             //SDKMgr.Inst.SwitchAccout();
@@ -164,9 +163,4 @@ public class GameApp : SingletonMono<GameApp>
     {
         AddLog("DoSwitchAccountCallback:" + info);
     }
-
-#if UNITY_IOS && !UNITY_EDITOR
-    //[DllImport("__Internal")]
-    //private static extern void c_ctest();
-#endif
 }
