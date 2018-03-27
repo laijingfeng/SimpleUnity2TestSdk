@@ -48,18 +48,18 @@ public class XcodeProjectMod : MonoBehaviour
         pbxProject.AddFrameworkToProject(targetGuid, "Security.framework", false);//for bugly,idfa
         pbxProject.AddFrameworkToProject(targetGuid, "SystemConfiguration.framework", false);//for bugly,IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "JavaScriptCore.framework", true);//for bugly
-        pbxProject.AddFrameworkToProject(targetGuid, "AdSupport.framework", true);//for idfa
+        pbxProject.AddFrameworkToProject(targetGuid, "AdSupport.framework", false);//for idfa
 
-        pbxProject.AddFrameworkToProject(targetGuid, "AVFoundation.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "Foundation.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "CoreTelephoney.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "AudioToolbox.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "UIKit.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "CoreLocation.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "Contacts.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "AddressBook.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", true);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "AVFoundation.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "Foundation.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreTelephony.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "AudioToolbox.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "UIKit.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreLocation.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "Contacts.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "AddressBook.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", false);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", false);//for IFlyMSC
 
         //添加lib
         AddLibToProject(pbxProject, targetGuid, "libc++.tbd");//for bugly
