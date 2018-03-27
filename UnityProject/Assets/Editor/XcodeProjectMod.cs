@@ -52,7 +52,14 @@ public class XcodeProjectMod : MonoBehaviour
 
         pbxProject.AddFrameworkToProject(targetGuid, "AVFoundation.framework", true);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "Foundation.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreTelephoney.framework", true);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "AudioToolbox.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "UIKit.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreLocation.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "Contacts.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "AddressBook.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", true);//for IFlyMSC
+        pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", true);//for IFlyMSC
 
         //添加lib
         AddLibToProject(pbxProject, targetGuid, "libc++.tbd");//for bugly
@@ -71,6 +78,9 @@ public class XcodeProjectMod : MonoBehaviour
         var plist = new PlistDocument();
         plist.ReadFromFile(plistPath);
         plist.root.SetString("NSMicrophoneUsageDescription", "Voice Talk Need Microphone");
+        plist.root.SetString("NSLocationUsageDescription", "Voice Talk Need Location");
+        plist.root.SetString("NSLocationAlwaysUsageDescription", "Voice Talk Need Location");
+        plist.root.SetString("NSContactsUsageDescription", "Voice Talk Need Contacts");
         // 应用修改
         plist.WriteToFile(plistPath);
 
