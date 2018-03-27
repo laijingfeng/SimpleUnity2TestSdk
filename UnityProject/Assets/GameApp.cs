@@ -35,16 +35,17 @@ public class GameApp : SingletonMono<GameApp>
         btnDoLogin.onClick.AddListener(() =>
         {
             //SDKMgr.Inst.Login();
-            int status = SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
-            {
-                url = m_DownloadPath,
-                apkName = "jerryTest",
-                noticeShowName = "Jerry",
-            });
-            if (status == 0)
-            {
-                this.StartCoroutine(IE_RefreshDownloadPro());
-            }
+            //int status = SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
+            //{
+            //    url = m_DownloadPath,
+            //    apkName = "jerryTest",
+            //    noticeShowName = "Jerry",
+            //});
+            //if (status == 0)
+            //{
+            //    this.StartCoroutine(IE_RefreshDownloadPro());
+            //}
+            SDKMgr.Inst.IFlyMSCSDKMgr_StartVoice();
         });
 
         btnDoSwitchAccount.onClick.AddListener(() =>
@@ -61,10 +62,11 @@ public class GameApp : SingletonMono<GameApp>
 
         btnTest.onClick.AddListener(() =>
         {
-            if (btnTest.gameObject.GetComponent<TestOne>() == null)
-            {
-                btnTest.gameObject.AddComponent<TestOne>();
-            }
+            SDKMgr.Inst.IFlyMSCSDKMgr_StopVoice();
+            //if (btnTest.gameObject.GetComponent<TestOne>() == null)
+            //{
+            //    btnTest.gameObject.AddComponent<TestOne>();
+            //}
         });
     }
 
