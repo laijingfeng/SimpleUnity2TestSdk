@@ -28,7 +28,7 @@ public class XcodeProjectMod : MonoBehaviour
 
         //添加flag
         pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");//for bugly
-        //pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-lz");//for IFlyMSC
+        pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-lz");//for IFlyMSC
         //关闭Bitcode
         pbxProject.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");//for IFlyMSC
 
