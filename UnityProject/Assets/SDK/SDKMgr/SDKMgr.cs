@@ -10,9 +10,8 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     }
 
     #region 数据
-
-    [HideInInspector]
-    public string IDFA;
+    
+    //TODO
 
     #endregion 数据
 

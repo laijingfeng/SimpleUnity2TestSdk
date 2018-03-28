@@ -61,9 +61,7 @@ public class GameApp : SingletonMono<GameApp>
 
         btns[1].onClick.AddListener(() =>
         {
-            SDKMgr.Inst.JerrySDKMgr_GetDeviceId();
-            AddLog("xxx idfa:" + SDKMgr.Inst.IDFA);
-
+            AddLog("xxx idfa:" + SDKMgr.Inst.JerrySDKMgr_GetDeviceId());
             UnityEngine.Debug.LogError("just test");
         });
 

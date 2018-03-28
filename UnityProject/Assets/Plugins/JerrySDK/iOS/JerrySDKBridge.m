@@ -8,12 +8,18 @@
 extern "C"
 {
 #endif
-
-	void __getIDFA(){
-		const char* gameObject = "SDKMgr";
-		const char* functionname = "SDK2Unity_GetIDFACallback";
+	char* makeStringCopy (const char* string){
+        if (string == NULL){
+            return NULL;
+		}
+        char* res = (char*)malloc(strlen(string) + 1);
+        strcpy(res, string);
+        return res;
+    }
+	
+	char* __getIDFA(){
 		NSString *str = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-		UnitySendMessage(gameObject, functionname, [str UTF8String]);
+		return makeStringCopy([str UFT8String]);
 	}
 
 #if defined (__cplusplus)

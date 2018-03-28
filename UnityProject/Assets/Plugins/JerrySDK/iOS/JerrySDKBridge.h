@@ -7,8 +7,8 @@
 extern "C"
 {
 #endif
-    
-    extern void __getIDFA();
+    char* makeStringCopy (const char* string);
+    extern char* __getIDFA();
 
 #if defined (__cplusplus)
 }
