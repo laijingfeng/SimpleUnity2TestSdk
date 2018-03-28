@@ -7,23 +7,33 @@ using UnityEngine.UI;
 
 public class GameApp : SingletonMono<GameApp>
 {
-    private Button btnDoLogin;
-    private Button btnDoSwitchAccount;
-    private Button btnTest;
+    private const int BTN_CNT = 3;
+    private Button[] btns;
     private Text tex;
     private InputField input;
 
     public string m_DownloadPath;
-    private Text loginText;
 
     protected override void Awake()
     {
         base.Awake();
 
-        btnDoLogin = this.transform.FindChild("doLogin").GetComponent<Button>();
-        loginText = btnDoLogin.transform.FindChild("Text").GetComponent<Text>();
-        btnDoSwitchAccount = this.transform.FindChild("doSwitchAccount").GetComponent<Button>();
-        btnTest = this.transform.FindChild("testBtn").GetComponent<Button>();
+        btns = new Button[BTN_CNT];
+        string[] btnsName = new string[BTN_CNT] 
+        {
+            "1",
+            "2",
+            "UnityTest"
+        };
+        for (int i = 0; i < BTN_CNT; i++)
+        {
+            btns[i] = this.transform.FindChild(string.Format("btn{0}", i + 1)).GetComponent<Button>();
+            Text txt = btns[i].transform.FindChild("Text").GetComponent<Text>();
+            if (txt)
+            {
+                txt.text = btnsName[i];
+            }
+        }
         tex = this.transform.FindChild("log/Viewport/Text").GetComponent<Text>();
         input = this.transform.FindChild("InputField").GetComponent<InputField>();
     }
@@ -32,9 +42,11 @@ public class GameApp : SingletonMono<GameApp>
     {
         LoadData();
 
-        btnDoLogin.onClick.AddListener(() =>
+        btns[0].onClick.AddListener(() =>
         {
             //SDKMgr.Inst.Login();
+            
+            //Download
             //int status = SDKMgr.Inst.JerrySDKMgr_DownloadApk(new JerrySDK.DownloadPar()
             //{
             //    url = m_DownloadPath,
@@ -45,28 +57,22 @@ public class GameApp : SingletonMono<GameApp>
             //{
             //    this.StartCoroutine(IE_RefreshDownloadPro());
             //}
-            SDKMgr.Inst.IFlyMSCSDKMgr_StartVoice();
         });
 
-        btnDoSwitchAccount.onClick.AddListener(() =>
+        btns[1].onClick.AddListener(() =>
         {
             SDKMgr.Inst.JerrySDKMgr_GetDeviceId();
-            AddLog("xxx id:" + SDKMgr.Inst.IDFA);
+            AddLog("xxx idfa:" + SDKMgr.Inst.IDFA);
 
             UnityEngine.Debug.LogError("just test");
-            //c_ctest();
-            //SDKMgr.Inst.SwitchAccout();
-            //DoTest();
-            //SDKMgr.Inst.JerrySDKMgr_DoTest();
         });
 
-        btnTest.onClick.AddListener(() =>
+        btns[2].onClick.AddListener(() =>
         {
-            SDKMgr.Inst.IFlyMSCSDKMgr_StopVoice();
-            //if (btnTest.gameObject.GetComponent<TestOne>() == null)
-            //{
-            //    btnTest.gameObject.AddComponent<TestOne>();
-            //}
+            if (btns[2].gameObject.GetComponent<TestOne>() == null)
+            {
+                btns[2].gameObject.AddComponent<TestOne>();
+            }
         });
     }
 
@@ -87,11 +93,11 @@ public class GameApp : SingletonMono<GameApp>
             JerrySDK.DownLoadPro pro = SDKMgr.Inst.JerrySDKMgr_GetDownloadPro();
             if (pro == null)
             {
-                loginText.text = "0%";
+                //loginText.text = "0%";
             }
             else
             {
-                loginText.text = pro.GetPro();
+                //loginText.text = pro.GetPro();
                 if (pro.finish)
                 {
                     break;
@@ -123,13 +129,21 @@ public class GameApp : SingletonMono<GameApp>
         DoWhileExitGame("quit");
     }
 
+    private string dataSaveTag = "";
+
+    /// <summary>
+    /// 加载本地存储数据
+    /// </summary>
     private void LoadData()
     {
         input.text = PlayerPrefs.GetString("testSave", "");
         dataSaveTag = "";
     }
-
-    private string dataSaveTag = "";
+    
+    /// <summary>
+    /// 保存本地数据
+    /// </summary>
+    /// <param name="tag"></param>
     private void SaveData(string tag = "")
     {
         dataSaveTag += tag;

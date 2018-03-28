@@ -28,21 +28,27 @@ public class XcodeProjectMod : MonoBehaviour
 
         //添加flag
         pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");//for bugly
+#if USE_MSC
         pbxProject.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-lz");//for IFlyMSC
+#endif
         //关闭Bitcode
-        pbxProject.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");//for IFlyMSC
+        pbxProject.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");//for IFlyMSC,normal
 
         //Windows下自动导出的部分斜杠不对，重新设置一次
         pbxProject.SetBuildProperty(targetGuid, "FRAMEWORK_SEARCH_PATHS", "$(inherited)");
         pbxProject.AddBuildProperty(targetGuid, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/Frameworks/Plugins/Bugly/iOS");//for bugly
+#if USE_MSC
         pbxProject.AddBuildProperty(targetGuid, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/Frameworks/Plugins/IFlyMSC/iOS");//for IFlyMSC
+#endif
 
         //Windows下自动导出的部分斜杠不对，重新设置一次
         pbxProject.SetBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(inherited)");
         pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)");
         pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
         pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries/Plugins/Bugly/iOS");//for bugly
+#if USE_MSC
         pbxProject.AddBuildProperty(targetGuid, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries/Plugins/IFlyMSC/iOS");//for IFlyMSC
+#endif
 
         //添加framwrok
         pbxProject.AddFrameworkToProject(targetGuid, "Security.framework", false);//for bugly,idfa
@@ -50,6 +56,7 @@ public class XcodeProjectMod : MonoBehaviour
         pbxProject.AddFrameworkToProject(targetGuid, "JavaScriptCore.framework", true);//for bugly
         pbxProject.AddFrameworkToProject(targetGuid, "AdSupport.framework", false);//for idfa
 
+#if USE_MSC
         pbxProject.AddFrameworkToProject(targetGuid, "AVFoundation.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "Foundation.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "CoreTelephony.framework", false);//for IFlyMSC
@@ -60,11 +67,14 @@ public class XcodeProjectMod : MonoBehaviour
         pbxProject.AddFrameworkToProject(targetGuid, "AddressBook.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", false);//for IFlyMSC
+#endif
 
         //添加lib
         AddLibToProject(pbxProject, targetGuid, "libc++.tbd");//for bugly
         AddLibToProject(pbxProject, targetGuid, "libz.tbd");//for bugly,IFlyMSC
+#if USE_MSC
         AddLibToProject(pbxProject, targetGuid, "libicucore.tbd");//for IFlyMSC
+#endif
 
         //应用修改
         File.WriteAllText(projectPath, pbxProject.WriteToString());
@@ -77,10 +87,12 @@ public class XcodeProjectMod : MonoBehaviour
         var plistPath = Path.Combine(pathToBuiltProject, "Info.plist");
         var plist = new PlistDocument();
         plist.ReadFromFile(plistPath);
-        plist.root.SetString("NSMicrophoneUsageDescription", "Voice Talk Need Microphone");
-        plist.root.SetString("NSLocationUsageDescription", "Voice Talk Need Location");
-        plist.root.SetString("NSLocationAlwaysUsageDescription", "Voice Talk Need Location");
-        plist.root.SetString("NSContactsUsageDescription", "Voice Talk Need Contacts");
+#if USE_MSC
+        plist.root.SetString("NSMicrophoneUsageDescription", "Voice Talk Need Microphone");//for IFlyMSC
+        plist.root.SetString("NSLocationUsageDescription", "Voice Talk Need Location");//for IFlyMSC
+        plist.root.SetString("NSLocationAlwaysUsageDescription", "Voice Talk Need Location");//for IFlyMSC
+        plist.root.SetString("NSContactsUsageDescription", "Voice Talk Need Contacts");//for IFlyMSC
+#endif
         // 应用修改
         plist.WriteToFile(plistPath);
 
