@@ -19,7 +19,7 @@ extern "C"
 	
 	char* __getIDFA(){
 		NSString *str = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-		return makeStringCopy([str UFT8String]);
+		return makeStringCopy([str UTF8String]);
 	}
 
 #if defined (__cplusplus)
