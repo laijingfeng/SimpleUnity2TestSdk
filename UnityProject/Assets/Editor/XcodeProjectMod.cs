@@ -54,17 +54,17 @@ public class XcodeProjectMod : MonoBehaviour
         pbxProject.AddFrameworkToProject(targetGuid, "Foundation.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "CoreTelephony.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "AudioToolbox.framework", false);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "UIKit.framework", false);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "CoreLocation.framework", false);//for IFlyMSC
+        //pbxProject.AddFrameworkToProject(targetGuid, "UIKit.framework", false);//for IFlyMSC
+        //pbxProject.AddFrameworkToProject(targetGuid, "CoreLocation.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "Contacts.framework", false);//for IFlyMSC
         pbxProject.AddFrameworkToProject(targetGuid, "AddressBook.framework", false);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", false);//for IFlyMSC
-        pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", false);//for IFlyMSC
+        //pbxProject.AddFrameworkToProject(targetGuid, "QuartzCore.framework", false);//for IFlyMSC
+        //pbxProject.AddFrameworkToProject(targetGuid, "CoreGraphics.framework", false);//for IFlyMSC
 
         //添加lib
         AddLibToProject(pbxProject, targetGuid, "libc++.tbd");//for bugly
         AddLibToProject(pbxProject, targetGuid, "libz.tbd");//for bugly,IFlyMSC
-        AddLibToProject(pbxProject, targetGuid, "libicucore.tbd");//for IFlyMSC
+        //AddLibToProject(pbxProject, targetGuid, "libicucore.tbd");//for IFlyMSC
 
         //应用修改
         File.WriteAllText(projectPath, pbxProject.WriteToString());
@@ -78,9 +78,9 @@ public class XcodeProjectMod : MonoBehaviour
         var plist = new PlistDocument();
         plist.ReadFromFile(plistPath);
         plist.root.SetString("NSMicrophoneUsageDescription", "Voice Talk Need Microphone");//for IFlyMSC
-        plist.root.SetString("NSLocationUsageDescription", "Voice Talk Need Location");//for IFlyMSC
-        plist.root.SetString("NSLocationAlwaysUsageDescription", "Voice Talk Need Location");//for IFlyMSC
-        plist.root.SetString("NSContactsUsageDescription", "Voice Talk Need Contacts");//for IFlyMSC
+        //plist.root.SetString("NSLocationUsageDescription", "Voice Talk Need Location");//for IFlyMSC
+        //plist.root.SetString("NSLocationAlwaysUsageDescription", "Voice Talk Need Location");//for IFlyMSC
+        //plist.root.SetString("NSContactsUsageDescription", "Voice Talk Need Contacts");//for IFlyMSC
         // 应用修改
         plist.WriteToFile(plistPath);
 
