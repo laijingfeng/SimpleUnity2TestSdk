@@ -7,33 +7,14 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
 {
     private void IFlyMSCSDKMgr_Create()
     {
-        SDKMgr.Inst.IFlyMSCSDKMgr_RegisterVoice();
     }
 
 #if UNITY_IOS && !UNITY_EDITOR
-
-    [DllImport("__Internal")]
-    private static extern void __registerVoice();
-
-    [DllImport("__Internal")]
-    private static extern void __startVoice();
-
-    [DllImport("__Internal")]
-    private static extern void __stopVoice();
-
-    [DllImport("__Internal")]
-    private static extern void __cancelVoice();
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern void _StartVoiceRecognition();
+    [System.Runtime.InteropServices.DllImport("__Internal")]
+    private static extern void _EndVoiceRecognition();
 #endif
-
-    /// <summary>
-    /// 注册，实例化
-    /// </summary>
-    public void IFlyMSCSDKMgr_RegisterVoice()
-    {
-#if UNITY_IOS && !UNITY_EDITOR
-        __registerVoice();
-#endif
-    }
 
     /// <summary>
     /// 开始
@@ -41,7 +22,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     public void IFlyMSCSDKMgr_StartVoice()
     {
 #if UNITY_IOS && !UNITY_EDITOR
-        __startVoice();
+        _StartVoiceRecognition();
 #endif
     }
 
@@ -51,7 +32,7 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     public void IFlyMSCSDKMgr_StopVoice()
     {
 #if UNITY_IOS && !UNITY_EDITOR
-        __stopVoice();
+        _EndVoiceRecognition();
 #endif
     }
 
@@ -61,11 +42,17 @@ public partial class SDKMgr : SingletonMono<SDKMgr>
     public void IFlyMSCSDKMgr_CancelVoice()
     {
 #if UNITY_IOS && !UNITY_EDITOR
-        __cancelVoice();
+        _EndVoiceRecognition();
 #endif
     }
 
 #if UNITY_IOS && !UNITY_EDITOR
+    private void OnVoiceResult(string hh)
+    {
+        UnityEngine.Debug.LogWarning(hh);
+        GameApp.Inst.AddLog(hh);
+    }
+
     private void SDK2Unity_IFlyMSCCallback(string msg)
     {
         UnityEngine.Debug.LogWarning(msg);
