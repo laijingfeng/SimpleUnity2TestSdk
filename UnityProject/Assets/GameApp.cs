@@ -21,8 +21,8 @@ public class GameApp : SingletonMono<GameApp>
         btns = new Button[BTN_CNT];
         string[] btnsName = new string[BTN_CNT] 
         {
-            "1",
-            "2",
+            "StartVoice",
+            "IDFA",
             "UnityTest"
         };
         for (int i = 0; i < BTN_CNT; i++)
@@ -57,6 +57,8 @@ public class GameApp : SingletonMono<GameApp>
             //{
             //    this.StartCoroutine(IE_RefreshDownloadPro());
             //}
+
+            SDKMgr.Inst.IFlyMSCSDKMgr_StartVoice();
         });
 
         btns[1].onClick.AddListener(() =>

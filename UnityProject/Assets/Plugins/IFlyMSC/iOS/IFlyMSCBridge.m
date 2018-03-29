@@ -42,36 +42,6 @@ static IFlyMSCBridge* gameMgr = nil;
 		//set whether or not to show punctuation in recognition results
 		[_iFlySpeechRecognizer setParameter:@"1" forKey:[IFlySpeechConstant ASR_PTT]];
 	}
-	
-	//Initialize recorder
-	if (_pcmRecorder == nil)
-	{
-		_pcmRecorder = [IFlyPcmRecorder sharedInstance];
-	}
-	_pcmRecorder.delegate = self;
-	[_pcmRecorder setSample:@"16000"];
-	[_pcmRecorder setSaveAudioPath:nil];//not save the audio file
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"%s",__func__);
-    
-    [super viewWillAppear:animated];
-    [self initRecognizer];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    NSLog(@"laijingfeng %s",__func__);
-    [_iFlySpeechRecognizer cancel];
-	[_iFlySpeechRecognizer setDelegate:nil];
-	[_iFlySpeechRecognizer setParameter:@"" forKey:[IFlySpeechConstant PARAMS]];
-	
-	[_pcmRecorder stop];
-	_pcmRecorder.delegate = nil;
-    
-    [super viewWillDisappear:animated];
 }
 
 /**
@@ -106,6 +76,74 @@ static IFlyMSCBridge* gameMgr = nil;
     return tempStr;
 }
 
+-(void) startVoice
+{
+	NSLog(@"laijingfeng StartVoice");
+	
+	if(_iFlySpeechRecognizer == nil)
+    {
+        [self initRecognizer];
+    }
+    
+	self.isCanceled = NO;
+	
+	[_iFlySpeechRecognizer cancel];
+	//Set microphone as audio source
+    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_MIC forKey:@"audio_source"];
+	//Set result type
+    [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
+    
+	//Set the audio name of saved recording file while is generated in the local storage path of SDK,by default in library/cache.
+	//[_iFlySpeechRecognizer setParameter:@nil forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];//无需保存
+	[_iFlySpeechRecognizer setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
+	
+    [_iFlySpeechRecognizer setDelegate:self];
+    BOOL ret = [_iFlySpeechRecognizer startListening];
+	if(ret){
+		NSLog(@"laijingfeng StartVoice yes");
+	}else{
+		NSLog(@"laijingfeng StartVoice no");
+	}
+}
+
+//开始录音回调
+- (void) onBeginOfSpeech
+{
+	NSLog(@"laijingfeng %s", __func__);
+}
+
+//音量回调函数
+- (void) onVolumeChanged:(int)volume
+{
+	NSLog(@"laijingfeng %s %d", __func__, volume);
+}
+
+/**
+ result callback of recognition without view
+ results：recognition results
+ isLast：whether or not this is the last result
+ **/
+- (void) onResults:(NSArray *) results isLast:(BOOL)isLast  
+{
+	NSLog(@"laijingfeng %s", __func__);
+    NSMutableString *resultString = [[NSMutableString alloc] init];  
+    NSDictionary *dic = results[0];
+    for (NSString *key in dic) {
+        [resultString appendFormat:@"%@",key];
+    }
+	
+    NSString *temp = [[NSString alloc] init];//textView
+    _result = [NSString stringWithFormat:@"%@%@", temp, resultString];
+	
+    NSString * resultFromJson =  [IFlyMSCBridge stringFromJson:resultString];  
+    temp = [NSString stringWithFormat:@"%@%@", temp, resultFromJson];  
+    
+	if (isLast){  
+        NSLog(@"听写结果(json)：%@测试",  self.result);  
+    }  
+    UnitySendMessage("SDKMgr", "SDK2Unity_IFlyMSCCallback", [temp UTF8String]);  
+}
+
 //识别会话结束返回代理
 - (void) onError:(IFlySpeechError *) error  
 {
@@ -125,100 +163,24 @@ static IFlyMSCBridge* gameMgr = nil;
 	NSLog(@"%@",text);  
 }
 
-/**
- result callback of recognition without view
- results：recognition results
- isLast：whether or not this is the last result
- **/
-- (void) onResults:(NSArray *) results isLast:(BOOL)isLast  
-{
-	NSLog(@"laijingfeng %s", __func__);
-    NSMutableString *resultString = [[NSMutableString alloc] init];  
-    NSDictionary *dic = results[0];
-    for (NSString *key in dic) {
-        [resultString appendFormat:@"%@",key];
-    }
-
-    NSString *temp = [[NSString alloc] init];  
-      
-    _result =[NSString stringWithFormat:@"%@%@", temp,resultString];  
-    NSString * resultFromJson =  [IFlyMSCBridge stringFromJson:resultString];  
-    temp = [NSString stringWithFormat:@"%@%@", temp,resultFromJson];  
-    
-	if (isLast){  
-        NSLog(@"听写结果(json)：%@测试",  self.result);  
-    }  
-    NSLog(@"_result=%@",_result);  
-    NSLog(@"resultFromJson=%@",resultFromJson);  
-    NSLog(@"isLast=%d,_textView.text=%@",isLast,temp);  
-    char* str1 = [temp UTF8String];
-    UnitySendMessage("SDKMgr", "SDK2Unity_IFlyMSCCallback", str1);  
-}
-
-/停止录音回调
-- (void) onEndOfSpeech
-{
-	NSLog(@"laijingfeng %s", __func__);
-	[_pcmRecorder stop];
-}
-
-//开始录音回调
-- (void) onBeginOfSpeech
-{
-	NSLog(@"laijingfeng %s", __func__);
-}
-
-//音量回调函数
-- (void) onVolumeChanged: (int)volume
-{
-	NSLog(@"laijingfeng %s", __func__);
-}
-
 //会话取消回调
 - (void) onCancel
 {
 	NSLog(@"laijingfeng %s", __func__);
 }
 
--(void) StartVoice
+//停止录音回调
+- (void) onEndOfSpeech
 {
-	NSLog("@laijingfeng StartVoice");
-	
-	self.isCanceled = NO;
-	self.isStreamRec = NO;
-    
-	if(_iFlySpeechRecognizer == nil)
-    {
-        [self initRecognizer];
-    }
-    
-	[_iFlySpeechRecognizer cancel];
-	//Set microphone as audio source
-    [_iFlySpeechRecognizer setParameter:IFLY_AUDIO_SOURCE_MIC forKey:@"audio_source"];
-	//Set result type
-    [_iFlySpeechRecognizer setParameter:@"json" forKey:[IFlySpeechConstant RESULT_TYPE]];
-    //Set the audio name of saved recording file while is generated in the local storage path of SDK,by default in library/cache.
-	[_iFlySpeechRecognizer setParameter:@"asr.pcm" forKey:[IFlySpeechConstant ASR_AUDIO_PATH]];
-    [_iFlySpeechRecognizer setDelegate:self];
-    BOOL ret = [_iFlySpeechRecognizer startListening];
-	if(ret){
-		NSLog("@laijingfeng StartVoice yes");
-	}else{
-		NSLog("@laijingfeng StartVoice no");
-	}
+	NSLog(@"laijingfeng %s", __func__);
 }
 
 /**
  stop recording
  **/
--(void) closeVoice  
+-(void) stopVoice  
 {  
     NSLog(@"laijingfeng %s",__func__);
-    
-    if(self.isStreamRec && !self.isBeginOfSpeech){
-        NSLog(@"%s,stop recording",__func__);
-        [_pcmRecorder stop];
-    }
     
     [_iFlySpeechRecognizer stopListening];
 }
@@ -230,11 +192,6 @@ static IFlyMSCBridge* gameMgr = nil;
 {  
     NSLog(@"%s",__func__);
     
-    if(self.isStreamRec && !self.isBeginOfSpeech){
-        NSLog(@"%s,stop recording",__func__);
-        [_pcmRecorder stop];
-    }
-    
     self.isCanceled = YES;
 
     [_iFlySpeechRecognizer cancel];
@@ -245,22 +202,25 @@ extern "C"
 {
 #endif
 
-	void __startup()
+	void __registerVoice()
 	{
 		[IFlyMSCBridge instance];
-		NSString *initString = [[NSString alloc] initWithFormat:@"appid=%@",@"5ab91122"];
-		[IFlySpeechUtility createUtility:initString];
 	}
 	
 	void __startVoice()
 	{
-		[gameMgr StartVoice];
+		[gameMgr startVoice];
 	}
 	
-	void __closeVoice()
+	void __stopVoice()
 	{  
-		[gameMgr closeVoice];  
+		[gameMgr stopVoice];  
 	}  
+	
+	void __cancelVoice()
+	{  
+		[gameMgr cancelVoice];  
+	}
 
 #if defined (__cplusplus)
 }
