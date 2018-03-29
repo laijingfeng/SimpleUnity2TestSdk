@@ -1,5 +1,5 @@
 ﻿#import <Foundation/Foundation.h>
-#import "iflyMSC/IFlyMSC.h"
+#import "IFlyMSC/IFlyMSC.h"
 
 @class IFlySpeechRecognizer;
 //需要实现IFlyRecognizerViewDelegate识别协议
