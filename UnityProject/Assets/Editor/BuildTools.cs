@@ -10,8 +10,8 @@ public class BuildTools : Editor
     static public void ExportAndroidApk()
     {
         DoSettings();
-        string exportPath = string.Format("{0}/../{1}_{2}.apk",
-            Application.dataPath, PlayerSettings.productName, System.DateTime.Now.ToString("HHmmss"));
+        string exportPath = string.Format("{0}/{1}_{2}.apk",
+            Application.dataPath.Replace("/Assets", ""), PlayerSettings.productName, System.DateTime.Now.ToString("HHmmss"));
         DoBuild(exportPath, BuildTarget.Android, BuildOptions.None);
     }
 
@@ -19,7 +19,7 @@ public class BuildTools : Editor
     static public void ExportAndroidProject()
     {
         DoSettings();
-        string exportPath = Application.dataPath + "/../ExportAndroid";
+        string exportPath = Application.dataPath.Replace("/Assets", "") + "/ExportAndroid";
         if (Directory.Exists(exportPath))
         {
             Directory.Delete(exportPath, true);
@@ -39,7 +39,7 @@ public class BuildTools : Editor
     [MenuItem("Tools/导出WebGL", false, 3)]
     static public void ExportWebGL()
     {
-        string exportPath = Application.dataPath + "/../WebGL";
+        string exportPath = Application.dataPath.Replace("/Assets", "") + "/WebGL";
         if (Directory.Exists(exportPath))
         {
             Directory.Delete(exportPath, true);
@@ -53,7 +53,7 @@ public class BuildTools : Editor
     [MenuItem("Tools/导出iOS", false, 4)]
     static public void ExportWebGL()
     {
-        string exportPath = Application.dataPath + "/../iOS" + System.DateTime.Now.ToString("yyyMMdd_HHmmss");
+        string exportPath = Application.dataPath.Replace("/Assets", "") + "/iOS" + System.DateTime.Now.ToString("yyyMMdd_HHmmss");
         if (Directory.Exists(exportPath))
         {
             Directory.Delete(exportPath, true);
