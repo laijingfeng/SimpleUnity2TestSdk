@@ -11,7 +11,7 @@ public class TestOne : MonoBehaviour
 
     void Start()
     {
-        tex = this.transform.FindChild("Text").GetComponent<Text>();
+        tex = this.transform.Find("Text").GetComponent<Text>();
         this.StartCoroutine("IE_Test");
     }
 

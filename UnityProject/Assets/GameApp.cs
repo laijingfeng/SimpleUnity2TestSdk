@@ -27,15 +27,15 @@ public class GameApp : SingletonMono<GameApp>
         };
         for (int i = 0; i < BTN_CNT; i++)
         {
-            btns[i] = this.transform.FindChild(string.Format("btn{0}", i + 1)).GetComponent<Button>();
-            Text txt = btns[i].transform.FindChild("Text").GetComponent<Text>();
+            btns[i] = this.transform.Find(string.Format("btn{0}", i + 1)).GetComponent<Button>();
+            Text txt = btns[i].transform.Find("Text").GetComponent<Text>();
             if (txt)
             {
                 txt.text = btnsName[i];
             }
         }
-        tex = this.transform.FindChild("log/Viewport/Text").GetComponent<Text>();
-        input = this.transform.FindChild("InputField").GetComponent<InputField>();
+        tex = this.transform.Find("log/Viewport/Text").GetComponent<Text>();
+        input = this.transform.Find("InputField").GetComponent<InputField>();
     }
 
     void Start()
